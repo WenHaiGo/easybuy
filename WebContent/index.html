@@ -36,7 +36,7 @@
 <body>
 	<div id="header" class="wrap">
 		<div id="logo">
-			<img src="images/logo.gif" />
+			<a href="http://localhost:8080/yimai/index.html"><img src="images/logo.gif" /></a>
 		</div>
 		<div class="help">
 			<a href="#" class="shopping">购物车</a><a href="login.html">登录</a><a
