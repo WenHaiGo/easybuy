@@ -7,6 +7,31 @@
 <link type="text/css" rel="stylesheet" href="css/style.css" />
 <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="scripts/function.js"></script>
+<script>
+	$(function() {
+		//失去焦点的时候利用ajax判断用户名是否存在【注意】网络太慢应该会导致延迟
+		//得到用户名
+		$
+				.ajax({
+					url : 'ShowNewsServlet',
+					type : 'post',
+					data : {
+						param : 'newsListPage',
+					},
+					dataType : 'json',
+					success : function(data) {
+						for (var i = 0; i < data.length; i++) {
+							var href = 'ShowNewsServlet?param=newsDetailPage&newsTitle='+data[i].ENTitle;
+							//var news = $('<li><a href='+href+'>'
+								//	+ data[i].ENTitle + '</a></li>');
+							$("#showNews").append('<li><a href='+href+'>'
+									+ data[i].ENTitle + '</a></li>');
+						}
+					}
+				})
+
+	})
+</script>
 </head>
 <body>
 	<div id="header" class="wrap">
@@ -68,17 +93,12 @@
 			</div>
 			<div class="spacer"></div>
 			<div class="news-list">
-				<h4>新闻动态</h4>
-				<ul>
-					<li><a href="news-view.html" target="_blank">抢钱啦</a></li>
-					<li><a href="news-view.html" target="_blank">抢钱啦</a></li>
-					<li><a href="news-view.html" target="_blank">抢钱啦</a></li>
-					<li><a href="news-view.html" target="_blank">抢钱啦</a></li>
-					<li><a href="news-view.html" target="_blank">抢钱啦</a></li>
-					<li><a href="news-view.html" target="_blank">抢钱啦</a></li>
-					<li><a href="news-view.html" target="_blank">抢钱啦</a></li>
-				</ul>
-			</div>
+					<h4>新闻动态</h4>
+					<ul id="showNews">
+						<!--全部使用jquery动态生成ajax的应用  -->
+
+					</ul>
+				</div>
 		</div>
 		<div id="news" class="right-main">
 			<h1>铁三角 Audio-Technica ATH-EQ300M-SV 银色 挂耳式耳机</h1>
