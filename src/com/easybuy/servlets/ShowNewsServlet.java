@@ -56,20 +56,24 @@ public class ShowNewsServlet extends HttpServlet {
 		response.getWriter().write(newsTitleJson);
 	}
 
-	void newsDetail(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	void newsDetail(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String newsTitle = request.getParameter("newsTitle");
-		System.out.println(newsTitle);
+		System.out.println("cdcdcddc"+newsTitle);
 		if (newsTitle != null) {
-			// 接下来就是根据newsTitle来查询content
-			List<ENews> newsContent = new ENewsServiceImpl().newsContent("newsTitle");
-			System.out.println(newsContent.size());
-			Gson gson = new Gson();
-			String newsContentJson = gson.toJson(newsContent);
-			System.out.println(newsContentJson);
-			response.getWriter().write(newsContentJson);
-			//重定向到新闻展示页面：在没有的世界里
-			response.sendRedirect("news-view.html");
+			ENews newsContent = new ENewsServiceImpl().newsContent(newsTitle);
+			request.setAttribute("newsContent", newsContent);
+			request.getRequestDispatcher("news-view.jsp").forward(request, response);
 		}
+
+		/*
+		 * 本来想使用ajax 使用HTML显示，遗留下的代码。 List<ENews> newsContent = new
+		 * ENewsServiceImpl().newsContent("newsTitle"); Gson gson = new Gson(); String
+		 * newsContentJson = gson.toJson(newsContent); System.out.println("nihao" +
+		 * newsContentJson); response.getWriter().write(newsContentJson);
+		 */
+		// 接下来就是根据newsTitle来查询content
+
+		// 重定向到新闻展示页面：在没有的世界里
 	}
 
 	/**

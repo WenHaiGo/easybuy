@@ -1,5 +1,6 @@
-<%@ page language="java" import="java.util.*" contentType="text/html;charset=UTF-8"%>html xmlns="http://www.w3.org/1999/xhtml">
-<html>
+<%@page import="com.easybuy.model.ENews"%>
+<%@ page language="java" import="java.util.*"
+	contentType="text/html;charset=UTF-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>易买网 - 首页</title>
@@ -81,7 +82,12 @@
 		</div>
 		<div id="news" class="right-main">
 			<h1>铁三角 Audio-Technica ATH-EQ300M-SV 银色 挂耳式耳机</h1>
-			<div class="content"></div>
+			<div class="content">
+				<%
+					ENews e = (ENews) request.getAttribute("newsContent");
+				%>
+				<p><%=e.getENContent()%></p>
+			</div>
 		</div>
 		<div class="clear"></div>
 	</div>

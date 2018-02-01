@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
-import com.easybuy.model.User;
+import com.easybuy.model.EUser;
 import com.easybuy.service.impl.EUServiceImpl;
 
 /**
@@ -35,8 +35,7 @@ public class UserServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("进入注册");
-
+		request.setCharacterEncoding("UTF-8");
 		String param = request.getParameter("param");
 		if (param.equals("reg") && param != null && param != "") {
 			// TODO Auto-generated method stub

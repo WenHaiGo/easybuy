@@ -2,7 +2,7 @@ package com.easybuy.model;
 
 import java.sql.Date;
 
-public class User {
+public class EUser {
 
 	String EUId;
 	String EUName;

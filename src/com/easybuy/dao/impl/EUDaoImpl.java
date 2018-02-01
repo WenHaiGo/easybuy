@@ -7,40 +7,71 @@ import java.sql.SQLException;
 
 import javax.naming.spi.DirStateFactory.Result;
 
+import org.omg.PortableInterceptor.INACTIVE;
+
 import com.easybuy.dao.EUDao;
 import com.easybuy.dbutils.DBUtil;
-import com.easybuy.model.User;
+import com.easybuy.model.EUser;
 
 public class EUDaoImpl implements EUDao {
+	Connection conn = DBUtil.getConn();
+	PreparedStatement pstm = null;
+	ResultSet rs = null;
 
 	@Override
-	public boolean save(String EUId,String pwd) throws SQLException {
+	public boolean save(String EUId, String pwd) throws SQLException {
 
-		Connection conn = null;
 		String sql = "INSERT INTO eu_user(eu_user_id,  eu_password) VALUES (?, ?)";
-		conn = DBUtil.getConn();
-		PreparedStatement pst = null;
+
 		boolean flag = false;
-		ResultSet rs=null;
+
 		try {
-			pst = conn.prepareStatement(sql);
-			pst.setString(1, EUId);
-			pst.setString(2, pwd);
-			int a = pst.executeUpdate();
-			if(a==1)
-			{
-				flag=true;
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, EUId);
+			pstm.setString(2, pwd);
+			int a = pstm.executeUpdate();
+			if (a == 1) {
+				flag = true;
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		finally {
-			DBUtil.DBclose(conn, pst,rs);
+			DBUtil.DBclose(conn, pstm, rs);
 		}
 		return flag;
+	}
+
+	public Boolean CheckEUId(String EUId) {
+		// TODO Auto-generated method stub
+
+		String sql = "select count(*)  from eu_user where  eu_user_id = ?";
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, EUId);
+			rs = pstm.executeQuery();
+			int a = 0;
+			if(rs.next())
+			{ a = rs.getInt(1);}
+			if (a>0)
+				return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		finally {
+			try {
+				DBUtil.DBclose(conn, pstm);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return false;
 	}
 
 }
