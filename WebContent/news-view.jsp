@@ -1,33 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ page language="java" import="java.util.*" contentType="text/html;charset=UTF-8"%>html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>易买网 - 首页</title>
 <link type="text/css" rel="stylesheet" href="css/style.css" />
 <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="scripts/function.js"></script>
-<script>
-	$(function() {
-		//失去焦点的时候利用ajax判断用户名是否存在【注意】网络太慢应该会导致延迟
-		//得到用户名
-		$.ajax({
-			url : 'ShowNewsServlet',
-			data {
-				param:'newsDetailPage',
-				
-			}
-			type : 'post',
-			dataType : 'json',
-			success : function(data) {
-				alert(data);
-				var news = $('<div>' + data.ENContent + '</div>');
-				$(".content").append(news);
-
-			}
-		})
-
-	})
-</script>
 </head>
 <body>
 	<div id="header" class="wrap">
