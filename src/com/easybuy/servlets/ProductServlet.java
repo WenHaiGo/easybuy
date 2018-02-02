@@ -35,7 +35,7 @@ public class ProductServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String param = request.getParameter("parame");
+		String param = request.getParameter("param");
 		EProductServiceImpl epService = new EProductServiceImpl();
 		if (param != null && param.equals("specialProduct")) {
 			// 这个参数真的不应该传入，既然变量名都是特卖的了为什么还要传入参数啊 传入参数和不传入参数会不会影响性能啊
@@ -44,6 +44,7 @@ public class ProductServlet extends HttpServlet {
 			// 将list转换为json来一波
 			Gson gson = new Gson();
 			String productList = gson.toJson(list);
+			System.out.println("山沟是"+productList);
 			response.getWriter().write(productList);
 		}
 

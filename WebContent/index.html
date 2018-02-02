@@ -25,18 +25,18 @@ $.ajax({
 							
 							for(var i = 0; i < data.length; i++) {
 								$("#special_price").append(
-										'<li>' +
-										'<dl>' +
-										'<dt>' +
-										'<a href="product-view.html" target="_blank"><img' +
-										'src=' + data[i].EPFile + ' /></a>' +
-										'</dt>' +
-										'<dd class="title">' +
-										'<a href="product-view.html" target="_blank">'+data[i].EPName+'</a>' +
-										'</dd>' +
-										'<dd class="price">' + data[i].EPPrice + '</dd>' +
-										'</dl>' +
-										'</li>')
+										
+										
+										
+										
+										'<li>'+
+										'<dl>'+
+											'<dt><a href="product-view.html" target="_blank"><img src='+data[i].EPFile+' /></a></dt>'+
+											'<dd class="title"><a href="product-view.html" target="_blank">'+data[i].EPName+'</a></dd>'+
+											'<dd class="price">￥108.0</dd>'+
+										'</dl></li>'
+									
+										)
 							}
 
 						}
