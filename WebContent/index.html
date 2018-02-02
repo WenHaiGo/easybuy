@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>易买网 - 首页</title>
@@ -8,39 +9,81 @@
 <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="scripts/function.js"></script>
 <script>
-	$(function() {
-		//失去焦点的时候利用ajax判断用户名是否存在【注意】网络太慢应该会导致延迟
-		//得到用户名
-		$
-				.ajax({
-					url : 'ShowNewsServlet',
-					type : 'post',
-					data : {
-						param : 'newsListPage',
+			$(function() {
+				
+$.ajax({
+						url: 'ProductServlet',
+						type: 'post',
+						data: {
+							param: 'specialProduct',
+						},
+						dataType: 'json',
+						success: function(data) {
+							//从前端传来一个json里面是商品的所有信息。然后使用jquery读出来
+
+							//这里data应该是一个list集合
+							
+							for(var i = 0; i < data.length; i++) {
+								$("#special_price").append(
+										'<li>' +
+										'<dl>' +
+										'<dt>' +
+										'<a href="product-view.html" target="_blank"><img' +
+										'src=' + data[i].EPFile + ' /></a>' +
+										'</dt>' +
+										'<dd class="title">' +
+										'<a href="product-view.html" target="_blank">'+data[i].EPName+'</a>' +
+										'</dd>' +
+										'<dd class="price">' + data[i].EPPrice + '</dd>' +
+										'</dl>' +
+										'</li>')
+							}
+
+						}
+
+				})
+				
+				//失去焦点的时候利用ajax判断用户名是否存在【注意】网络太慢应该会导致延迟
+				//得到用户名
+
+				//获取新闻题目列表信息
+				$.ajax({
+					url: 'ShowNewsServlet',
+					type: 'post',
+					data: {
+						param: 'newsListPage',
 					},
-					dataType : 'json',
-					success : function(data) {
-						for (var i = 0; i < data.length; i++) {
-							var href = 'ShowNewsServlet?param=newsDetailPage&newsTitle='+data[i].ENTitle;
-							//var news = $('<li><a href='+href+'>'
-								//	+ data[i].ENTitle + '</a></li>');
-							$("#showNews").append('<li><a href='+href+'>'
-									+ data[i].ENTitle + '</a></li>');
+					dataType: 'json',
+					success: function(data) {
+						
+						//加载新闻标题列表
+						for(var i = 0; i < data.length; i++) {
+							var href = 'ShowNewsServlet?param=newsDetailPage&newsTitle=' +
+								data[i].ENTitle;
+							$("#showNews").append(
+								'<li><a href=' + href + '>' + data[i].ENTitle +
+								'</a></li>');
 						}
 					}
 				})
 
-	})
-</script>
+				//加载促销商品特卖列表
+
+				
+
+			})
+		</script>
 </head>
+
 <body>
 	<div id="header" class="wrap">
 		<div id="logo">
-			<a href="http://localhost:8080/yimai/index.html"><img src="images/logo.gif" /></a>
+			<a href="http://localhost:8080/yimai/index.html"><img
+				src="images/logo.gif" /></a>
 		</div>
 		<div class="help">
-			<a href="#" class="shopping">购物车</a><a href="login.html">登录</a><a
-				href="register.html">注册</a><a href="guestbook.html">留言</a>
+			<a href="#" class="shopping">购物车</a> <a href="login.html">登录</a> <a
+				href="register.html">注册</a> <a href="guestbook.html">留言</a>
 		</div>
 		<div class="navbar">
 			<ul class="clearfix">
@@ -153,104 +196,8 @@
 		<div class="main">
 			<div class="price-off">
 				<h2>今日特价</h2>
-				<ul class="product clearfix">
-					<li>
-						<dl>
-							<dt>
-								<a href="product-view.html" target="_blank"><img
-									src="images/product/1.jpg" /></a>
-							</dt>
-							<dd class="title">
-								<a href="product-view.html" target="_blank">法国德菲丝松露精品巧克力500g/盒</a>
-							</dd>
-							<dd class="price">￥108.0</dd>
-						</dl>
-					</li>
-					<li>
-						<dl>
-							<dt>
-								<a href="product-view.html" target="_blank"><img
-									src="images/product/2.jpg" /></a>
-							</dt>
-							<dd class="title">
-								<a href="product-view.html" target="_blank">乐扣普通型保鲜盒圣诞7件套</a>
-							</dd>
-							<dd class="price">￥69.90</dd>
-						</dl>
-					</li>
-					<li>
-						<dl>
-							<dt>
-								<a href="product-view.html" target="_blank"><img
-									src="images/product/3.jpg" /></a>
-							</dt>
-							<dd class="title">
-								<a href="product-view.html" target="_blank">欧珀莱均衡保湿四件套</a>
-							</dd>
-							<dd class="price">￥279.0</dd>
-						</dl>
-					</li>
-					<li>
-						<dl>
-							<dt>
-								<a href="product-view.html" target="_blank"><img
-									src="images/product/4.jpg" /></a>
-							</dt>
-							<dd class="title">
-								<a href="product-view.html" target="_blank">联想笔记本电脑 高速独立显存</a>
-							</dd>
-							<dd class="price">￥4199</dd>
-						</dl>
-					</li>
-					<li>
-						<dl>
-							<dt>
-								<a href="product-view.html" target="_blank"><img
-									src="images/product/5.jpg" /></a>
-							</dt>
-							<dd class="title">
-								<a href="product-view.html" target="_blank">法姿韩版显瘦彩边时尚牛仔铅笔裤</a>
-							</dd>
-							<dd class="price">￥49.00</dd>
-						</dl>
-					</li>
-					<li>
-						<dl>
-							<dt>
-								<a href="product-view.html" target="_blank"><img
-									src="images/product/6.jpg" /></a>
-							</dt>
-							<dd class="title">
-								<a href="product-view.html" target="_blank">Genius925纯银施华洛世奇水晶吊坠</a>
-							</dd>
-							<dd class="price">￥69.90</dd>
-						</dl>
-					</li>
-					<li>
-						<dl>
-							<dt>
-								<a href="product-view.html" target="_blank"><img
-									src="images/product/7.jpg" /></a>
-							</dt>
-							<dd class="title">
-								<a href="product-view.html" target="_blank">利仁2018M福满堂电饼铛
-									好用实惠</a>
-							</dd>
-							<dd class="price">￥268.0</dd>
-						</dl>
-					</li>
-					<li>
-						<dl>
-							<dt>
-								<a href="product-view.html" target="_blank"><img
-									src="images/product/8.jpg" /></a>
-							</dt>
-							<dd class="title">
-								<a href="product-view.html" target="_blank">达派高档拉杆箱20寸 经典款式</a>
-							</dd>
-							<dd class="price">￥198.0</dd>
-						</dl>
-					</li>
+				<ul class="product clearfix" id = "special_price">
+					<!--  ajax会动态的加载数据-->
 				</ul>
 			</div>
 			<div class="side">
@@ -359,7 +306,7 @@
 							</dt>
 							<dd class="title">
 								<a href="product-view.html" target="_blank">利仁2018M福满堂电饼铛
-									好用实惠</a>
+									好用实惠 </a>
 							</dd>
 							<dd class="price">￥268.0</dd>
 						</dl>
@@ -384,7 +331,7 @@
 							</dt>
 							<dd class="title">
 								<a href="product-view.html" target="_blank">爱国者MP4 全屏触摸多格式播放
-									4G</a>
+									4G </a>
 							</dd>
 							<dd class="price">￥289.0</dd>
 						</dl>
@@ -433,4 +380,6 @@
 	<div id="footer">Copyright &copy; 2010 北大青鸟 All Rights Reserved.
 		京ICP证1000001号</div>
 </body>
+
 </html>
+
