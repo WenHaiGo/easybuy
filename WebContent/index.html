@@ -9,70 +9,67 @@
 <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="scripts/function.js"></script>
 <script>
-			$(function() {
-				
-$.ajax({
-						url: 'ProductServlet',
-						type: 'post',
-						data: {
-							param: 'specialProduct',
-						},
-						dataType: 'json',
-						success: function(data) {
-							//从前端传来一个json里面是商品的所有信息。然后使用jquery读出来
+	$(function() {
 
-							//这里data应该是一个list集合
-							
-							for(var i = 0; i < data.length; i++) {
-								$("#special_price").append(
-										
-										
-										
-										
-										'<li>'+
-										'<dl>'+
-											'<dt><a href="product-view.html" target="_blank"><img src='+data[i].EPFile+' /></a></dt>'+
-											'<dd class="title"><a href="product-view.html" target="_blank">'+data[i].EPName+'</a></dd>'+
-											'<dd class="price">￥108.0</dd>'+
-										'</dl></li>'
-									
-										)
-							}
+		$
+				.ajax({
+					url : 'ProductServlet',
+					type : 'post',
+					data : {
+						param : 'specialProduct',
+					},
+					dataType : 'json',
+					success : function(data) {
+						//从前端传来一个json里面是商品的所有信息。然后使用jquery读出来
 
+						//这里data应该是一个list集合
+
+						for (var i = 0; i < data.length; i++) {
+							$("#special_price")
+									.append(
+											'<li>'
+													+ '<dl>'
+													+ '<dt><a href="ProductServlet?param=productView&EPId=1" target="_blank"><img src='+data[i].EPFile+' /></a></dt>'
+													+ '<dd class="title"><a href="ProductServlet?param=productView&EPId=1" target="_blank">'
+													+ data[i].EPName
+													+ '</a></dd>'
+													+ '<dd class="price">￥108.0</dd>'
+													+ '</dl></li>')
 						}
 
-				})
-				
-				//失去焦点的时候利用ajax判断用户名是否存在【注意】网络太慢应该会导致延迟
-				//得到用户名
+					}
 
-				//获取新闻题目列表信息
-				$.ajax({
-					url: 'ShowNewsServlet',
-					type: 'post',
-					data: {
-						param: 'newsListPage',
+				})
+
+		//失去焦点的时候利用ajax判断用户名是否存在【注意】网络太慢应该会导致延迟
+		//得到用户名
+
+		//获取新闻题目列表信息
+		$
+				.ajax({
+					url : 'ShowNewsServlet',
+					type : 'post',
+					data : {
+						param : 'newsListPage',
 					},
-					dataType: 'json',
-					success: function(data) {
-						
+					dataType : 'json',
+					success : function(data) {
+
 						//加载新闻标题列表
-						for(var i = 0; i < data.length; i++) {
-							var href = 'ShowNewsServlet?param=newsDetailPage&newsTitle=' +
-								data[i].ENTitle;
+						for (var i = 0; i < data.length; i++) {
+							var href = 'ShowNewsServlet?param=newsDetailPage&newsTitle='
+									+ data[i].ENTitle;
 							$("#showNews").append(
-								'<li><a href=' + href + '>' + data[i].ENTitle +
-								'</a></li>');
+									'<li><a href=' + href + '>'
+											+ data[i].ENTitle + '</a></li>');
 						}
 					}
 				})
 
-				//加载促销商品特卖列表
+		//加载促销商品特卖列表
 
-				
-
-			})
-		</script>
+	})
+</script>
 </head>
 
 <body>
@@ -196,7 +193,7 @@ $.ajax({
 		<div class="main">
 			<div class="price-off">
 				<h2>今日特价</h2>
-				<ul class="product clearfix" id = "special_price">
+				<ul class="product clearfix" id="special_price">
 					<!--  ajax会动态的加载数据-->
 				</ul>
 			</div>

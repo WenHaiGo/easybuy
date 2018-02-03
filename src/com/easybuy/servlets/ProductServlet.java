@@ -1,7 +1,9 @@
 package com.easybuy.servlets;
 
 import java.io.IOException;
+import java.security.interfaces.RSAKey;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,8 +46,23 @@ public class ProductServlet extends HttpServlet {
 			// 将list转换为json来一波
 			Gson gson = new Gson();
 			String productList = gson.toJson(list);
-			System.out.println("山沟是"+productList);
+			System.out.println("山沟是" + productList);
 			response.getWriter().write(productList);
+		}
+
+		if (param != null && param.equals("productView")) {
+			System.out.println("nihao");
+			String str = request.getParameter("EPId");
+			System.err.println(str);
+			if (str != null) {
+				int EPID = Integer.parseInt(str);
+				// 根据商品id得到该id商品所有的商品信息。
+				EProduct ep = epService.getDetailProduct(EPID);
+				
+				request.setAttribute("EProduct", ep);
+
+				request.getRequestDispatcher("product-view.jsp").forward(request, response);
+			}
 		}
 
 	}

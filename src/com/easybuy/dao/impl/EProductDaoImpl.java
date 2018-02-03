@@ -25,7 +25,7 @@ public class EProductDaoImpl implements EProductDao {
 		sql = "select * from e_product where is_special_price = ?";
 		List<EProduct> list = null;
 		try {
-			
+
 			pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, isSpecialSale);
 			rs = pstm.executeQuery();
@@ -58,6 +58,47 @@ public class EProductDaoImpl implements EProductDao {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public EProduct getDetailProduct(int EPId) {
+
+		sql = "select * from e_product where ep_id = ?";
+		EProduct ep = null;
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, EPId);
+			rs = pstm.executeQuery();
+			while (rs.next()) {
+				ep = new EProduct();
+				ep.setEPCChildId(rs.getInt("epc_child_id"));
+				ep.setEPCId(rs.getInt("epc_id"));
+				ep.setEPDesc(rs.getString("ep_description"));
+				ep.setEPFile(rs.getString("ep_file_name"));
+				ep.setEPId(rs.getInt("ep_id"));
+				ep.setEPPrice(rs.getInt("ep_price"));
+				ep.setEPName(rs.getString("ep_name"));
+				ep.setEPStock(rs.getInt("ep_stock"));
+				ep.setIsSpecialPrice(rs.getInt("is_special_price"));
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		finally {
+			try {
+				DBUtil.DBclose(conn, pstm, rs);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return ep;
+		// TODO Auto-generated method stub
+
 	}
 
 }
