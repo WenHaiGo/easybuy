@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.easybuy.model.EPCateg;
 import com.easybuy.model.EProduct;
 import com.easybuy.service.impl.EProductServiceImpl;
 import com.google.gson.Gson;
@@ -58,11 +59,22 @@ public class ProductServlet extends HttpServlet {
 				int EPID = Integer.parseInt(str);
 				// 根据商品id得到该id商品所有的商品信息。
 				EProduct ep = epService.getDetailProduct(EPID);
-				
+
 				request.setAttribute("EProduct", ep);
 
 				request.getRequestDispatcher("product-view.jsp").forward(request, response);
 			}
+		}
+
+		if (param != null && param.equals("productCateg")) {
+			response.setContentType("text/html;charset=utf-8");
+			response.setCharacterEncoding("utf-8");
+			List<EPCateg> list = epService.getCateg();
+			Gson gson = new Gson();
+			String productCategList = gson.toJson(list);
+			System.out.println("hahahhaha" + productCategList);
+			response.getWriter().write(productCategList);
+
 		}
 
 	}

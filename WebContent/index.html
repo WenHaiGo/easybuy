@@ -1,5 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -29,7 +28,7 @@
 									.append(
 											'<li>'
 													+ '<dl>'
-													+ '<dt><a href="ProductServlet?param=productView&EPId=1" target="_blank"><img src='+data[i].EPFile+' /></a></dt>'
+													+ '<dt><a href="ProductServlet?param=productView&EPId=1" target="_blank"><img src=' + data[i].EPFile + ' /></a></dt>'
 													+ '<dd class="title"><a href="ProductServlet?param=productView&EPId=1" target="_blank">'
 													+ data[i].EPName
 													+ '</a></dd>'
@@ -66,7 +65,66 @@
 					}
 				})
 
-		//加载促销商品特卖列表
+		//加载分类上栏和下栏
+
+		$.ajax({
+			url : 'ProductServlet',
+			type : 'post',
+			data : {
+				param : 'productCateg',
+			},
+			dataType : 'json',
+			success : function(data) {
+
+				//加载分类：
+				//	<li><a href="product-list.html">影视</a></li>
+				for (var i = 0; i < data.length; i++) {
+					//加载顶部的菜单分类
+					if (data[i].EPCIsOften == 1) {
+						$("#topNav").append(
+								'<li><a href=product-list.html>'
+										+ data[i].EPCName + '</a></li>');
+					}
+
+					//加载左侧分类信息：
+					//对于有有父类和子类的分类表其实就是根据pid来加载的   但是这个又不像是城市地区那样的，所以还是有点不一样
+					//最本质的就是要知道什么时候分多少级，如果有一个功能不知道分多少级如何根据一个程序一劳永逸
+					//data[i].EPCId==1表示图书音像分类，
+					if (data[i].EPCId == 1) {
+
+						$("#leftNav")
+								.append('<dt>' + data[i].EPCName + '</dt>');
+						//加载所有子类  注意优化代码减少不必要的循环
+						for (var j = 0; j < data.length; j++) {
+							if (data[j].EPCParentId == 1) {
+								$("#leftNav").append(
+										'<dd><a href = "product-list.html" >'
+												+ data[j].EPCName
+												+ ' </a> </dd>')
+							}
+
+						}
+
+					}
+					//data[i].EPCId==2表示百货分类
+					if (data[i].EPCId == 2) {
+						$("#leftNav")
+								.append('<dt>' + data[i].EPCName + '</dt>');
+
+						for (var j = 0; j < data.length; j++) {
+							if (data[j].EPCParentId == 2) {
+								$("#leftNav").append(
+										'<dd><a href = "product-list.html" >'
+												+ data[j].EPCName
+												+ ' </a> </dd>')
+							}
+
+						}
+
+					}
+				}
+			}
+		})
 
 	})
 </script>
@@ -94,23 +152,7 @@
 	</div>
 	<div id="childNav">
 		<div class="wrap">
-			<ul class="clearfix">
-				<li class="first"><a href="#">音乐</a></li>
-				<li><a href="#">影视</a></li>
-				<li><a href="#">少儿</a></li>
-				<li><a href="#">动漫</a></li>
-				<li><a href="#">小说</a></li>
-				<li><a href="#">外语</a></li>
-				<li><a href="#">数码相机</a></li>
-				<li><a href="#">笔记本</a></li>
-				<li><a href="#">羽绒服</a></li>
-				<li><a href="#">秋冬靴</a></li>
-				<li><a href="#">运动鞋</a></li>
-				<li><a href="#">美容护肤</a></li>
-				<li><a href="#">家纺用品</a></li>
-				<li><a href="#">婴幼奶粉</a></li>
-				<li><a href="#">饰品</a></li>
-				<li class="last"><a href="#">Investor Relations</a></li>
+			<ul class="clearfix" id="topNav">
 			</ul>
 		</div>
 	</div>
@@ -118,57 +160,7 @@
 		<div class="lefter">
 			<div class="box">
 				<h2>商品分类</h2>
-				<dl>
-					<dt>图书音像</dt>
-					<dd>
-						<a href="product-list.html">图书</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">音乐</a>
-					</dd>
-					<dt>百货</dt>
-					<dd>
-						<a href="product-list.html">运动健康</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">服装</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">家居</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">美妆</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">母婴</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">食品</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">手机数码</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">家具首饰</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">手表饰品</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">鞋包</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">家电</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">电脑办公</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">玩具文具</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">汽车用品</a>
-					</dd>
+				<dl id="leftNav">
 				</dl>
 			</div>
 			<div class="spacer"></div>
@@ -379,4 +371,3 @@
 </body>
 
 </html>
-

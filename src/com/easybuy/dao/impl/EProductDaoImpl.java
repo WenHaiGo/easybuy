@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.easybuy.dao.EProductDao;
 import com.easybuy.dbutils.DBUtil;
+import com.easybuy.model.EPCateg;
 import com.easybuy.model.EProduct;
 
 public class EProductDaoImpl implements EProductDao {
@@ -99,6 +100,43 @@ public class EProductDaoImpl implements EProductDao {
 		return ep;
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public List<EPCateg> getCateg() {
+		// TODO Auto-generated method stub
+
+		sql = "select * from e_category";
+		
+		List<EPCateg> list = new LinkedList<>();
+		try {
+			pstm = conn.prepareStatement(sql);
+			rs = pstm.executeQuery();
+
+			while (rs.next()) {
+				EPCateg epc = new EPCateg();
+				// ep.setEPCChildId(rs.getInt(columnIndex));
+				epc.setEPCId(rs.getInt("epc_id"));
+				epc.setEPCIsOften(rs.getInt("is_often"));
+				epc.setEPCIsTop(rs.getInt("is_top"));
+				epc.setEPCName(rs.getString("epc_name"));
+				epc.setEPCParentId(rs.getInt("epc_parent_id"));
+				list.add(epc);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		finally {
+			try {
+				DBUtil.DBclose(conn, pstm,rs);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return list;
 	}
 
 }
