@@ -6,26 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>易买网 - 首页</title>
 <link type="text/css" rel="stylesheet" href="css/style.css" />
+<script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="scripts/function.js"></script>
 </head>
 <body>
 	<div id="header" class="wrap">
-		<div id="logo">
-			<img src="images/logo.gif" />
-		</div>
-		<div class="help">
-			<a href="#" class="shopping">购物车</a><a href="login.html">登录</a><a
-				href="register.html">注册</a><a href="guestbook.html">留言</a>
-		</div>
-		<div class="navbar">
-			<ul class="clearfix">
-				<li class="current"><a href="#">首页</a></li>
-				<li><a href="#">图书</a></li>
-				<li><a href="#">百货</a></li>
-				<li><a href="#">品牌</a></li>
-				<li><a href="#">促销</a></li>
-			</ul>
-		</div>
 	</div>
 	<div id="childNav">
 		<div class="wrap">
