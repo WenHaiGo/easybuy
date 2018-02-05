@@ -1,3 +1,145 @@
+
+		
+$(function() {document.getElementById("header").innerHTML='<div id="logo">'+
+	'<a href="http://localhost:8080/yimai/index.html"><img src="images/logo.gif" /></a>'+
+'</div>'+
+'<div class="help">'+
+'<a href="#" class="shopping">购物车</a> <a href="login.html">登录</a> <a'+
+	'href="register.html">注册</a> <a href="guestbook.html">留言</a>'+
+'</div>'+
+'<div class="navbar">'+
+'<ul class="clearfix">'+
+	'<li class="current"><a href="#">首页</a></li>'+
+	'<li><a href="#">图书</a></li>'+
+	'<li><a href="#">百货</a></li>'+
+	'<li><a href="#">品牌</a></li>'+
+	'<li><a href="#">促销</a></li>'+
+'</ul>'+
+'</div>'})
+
+
+$(function() {
+
+	$
+			.ajax({
+				url : 'ProductServlet',
+				type : 'post',
+				data : {
+					param : 'specialProduct',
+				},
+				dataType : 'json',
+				success : function(data) {
+					// 从前端传来一个json里面是商品的所有信息。然后使用jquery读出来
+
+					// 这里data应该是一个list集合
+
+					for (var i = 0; i < data.length; i++) {
+						$("#special_price")
+								.append(
+										'<li>'
+												+ '<dl>'
+												+ '<dt><a href="ProductServlet?param=productView&EPId=1" target="_blank"><img src=' + data[i].EPFile + ' /></a></dt>'
+												+ '<dd class="title"><a href="ProductServlet?param=productView&EPId=1" target="_blank">'
+												+ data[i].EPName
+												+ '</a></dd>'
+												+ '<dd class="price">￥108.0</dd>'
+												+ '</dl></li>')
+					}
+
+				}
+
+			})
+
+	// 失去焦点的时候利用ajax判断用户名是否存在【注意】网络太慢应该会导致延迟
+	// 得到用户名
+
+	// 获取新闻题目列表信息
+	$
+			.ajax({
+				url : 'ShowNewsServlet',
+				type : 'post',
+				data : {
+					param : 'newsListPage',
+				},
+				dataType : 'json',
+				success : function(data) {
+
+					// 加载新闻标题列表
+					for (var i = 0; i < data.length; i++) {
+						var href = 'ShowNewsServlet?param=newsDetailPage&newsTitle='
+								+ data[i].ENTitle;
+						$("#showNews").append(
+								'<li><a href=' + href + '>'
+										+ data[i].ENTitle + '</a></li>');
+					}
+				}
+			})
+
+	// 加载分类上栏和下栏
+
+	$.ajax({
+		url : 'ProductServlet',
+		type : 'post',
+		data : {
+			param : 'productCateg',
+		},
+		dataType : 'json',
+		success : function(data) {
+
+			// 加载分类：
+			// <li><a href="product-list.html">影视</a></li>
+			for (var i = 0; i < data.length; i++) {
+				// 加载顶部的菜单分类
+				if (data[i].EPCIsOften == 1) {
+					$("#topNav").append(
+							'<li><a href=product-list.html>'
+									+ data[i].EPCName + '</a></li>');
+				}
+
+				// 加载左侧分类信息：
+				// 对于有有父类和子类的分类表其实就是根据pid来加载的 但是这个又不像是城市地区那样的，所以还是有点不一样
+				// 最本质的就是要知道什么时候分多少级，如果有一个功能不知道分多少级如何根据一个程序一劳永逸
+				// data[i].EPCId==1表示图书音像分类，
+				if (data[i].EPCId == 1) {
+
+					$("#leftNav")
+							.append('<dt>' + data[i].EPCName + '</dt>');
+					// 加载所有子类 注意优化代码减少不必要的循环
+					for (var j = 0; j < data.length; j++) {
+						if (data[j].EPCParentId == 1) {
+							$("#leftNav").append(
+									'<dd><a href = "product-list.html" >'
+											+ data[j].EPCName
+											+ ' </a> </dd>')
+						}
+
+					}
+
+				}
+				// data[i].EPCId==2表示百货分类
+				if (data[i].EPCId == 2) {
+					$("#leftNav")
+							.append('<dt>' + data[i].EPCName + '</dt>');
+
+					for (var j = 0; j < data.length; j++) {
+						if (data[j].EPCParentId == 2) {
+							$("#leftNav").append(
+									'<dd><a href = "product-list.html" >'
+											+ data[j].EPCName
+											+ ' </a> </dd>')
+						}
+
+					}
+
+				}
+			}
+		}
+	})
+
+})
+
+
+
 // JavaScript Document
 window.onload = function(){
 	showChater();
@@ -178,3 +320,10 @@ function reloadPrice(id, status)
 	}
 	priceBox.innerHTML = "￥" + price * number.value;
 }
+
+
+
+
+
+
+// ajax代码
