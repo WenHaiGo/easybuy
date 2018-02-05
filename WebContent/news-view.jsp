@@ -8,31 +8,6 @@
 <link type="text/css" rel="stylesheet" href="css/style.css" />
 <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="scripts/function.js"></script>
-<script>
-	$(function() {
-		//失去焦点的时候利用ajax判断用户名是否存在【注意】网络太慢应该会导致延迟
-		//得到用户名
-		$
-				.ajax({
-					url : 'ShowNewsServlet',
-					type : 'post',
-					data : {
-						param : 'newsListPage',
-					},
-					dataType : 'json',
-					success : function(data) {
-						for (var i = 0; i < data.length; i++) {
-							var href = 'ShowNewsServlet?param=newsDetailPage&newsTitle='+data[i].ENTitle;
-							//var news = $('<li><a href='+href+'>'
-								//	+ data[i].ENTitle + '</a></li>');
-							$("#showNews").append('<li><a href='+href+'>'
-									+ data[i].ENTitle + '</a></li>');
-						}
-					}
-				})
-
-	})
-</script>
 </head>
 <body>
 	<div id="header" class="wrap">

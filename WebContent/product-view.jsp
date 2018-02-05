@@ -10,27 +10,13 @@
 <script type="text/javascript" src="scripts/function.js"></script>
 </head>
 <body>
+<!--我认为必要的代码还是要有的  这样会让人知道页面的基本结构是什么  -->
 	<div id="header" class="wrap">
+	<!--从js里面加载头部页面  -->
 	</div>
 	<div id="childNav">
 		<div class="wrap">
-			<ul class="clearfix">
-				<li class="first"><a href="#">音乐</a></li>
-				<li><a href="#">影视</a></li>
-				<li><a href="#">少儿</a></li>
-				<li><a href="#">动漫</a></li>
-				<li><a href="#">小说</a></li>
-				<li><a href="#">外语</a></li>
-				<li><a href="#">数码相机</a></li>
-				<li><a href="#">笔记本</a></li>
-				<li><a href="#">羽绒服</a></li>
-				<li><a href="#">秋冬靴</a></li>
-				<li><a href="#">运动鞋</a></li>
-				<li><a href="#">美容护肤</a></li>
-				<li><a href="#">家纺用品</a></li>
-				<li><a href="#">婴幼奶粉</a></li>
-				<li><a href="#">饰品</a></li>
-				<li class="last"><a href="#">Investor Relations</a></li>
+			<ul class="clearfix" id="topNav">
 			</ul>
 		</div>
 	</div>
@@ -42,56 +28,24 @@
 		<div class="lefter">
 			<div class="box">
 				<h2>商品分类</h2>
-				<dl>
-					<dt>图书音像</dt>
+				<dl id="leftNav">
+				</dl>
+			</div>
+			<div class="spacer"></div>
+			<div class="last-view">
+				<h2>最近浏览</h2>
+				<dl class="clearfix">
+					<dt>
+						<img src="images/product/0_tiny.gif" />
+					</dt>
 					<dd>
-						<a href="product-list.html">图书</a>
+						<a href="product-view.html">法国德菲丝松露精品巧克力500g/盒</a>
 					</dd>
+					<dt>
+						<img src="images/product/0_tiny.gif" />
+					</dt>
 					<dd>
-						<a href="product-list.html">音乐</a>
-					</dd>
-					<dt>百货</dt>
-					<dd>
-						<a href="product-list.html">运动健康</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">服装</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">家居</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">美妆</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">母婴</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">食品</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">手机数码</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">家具首饰</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">手表饰品</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">鞋包</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">家电</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">电脑办公</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">玩具文具</a>
-					</dd>
-					<dd>
-						<a href="product-list.html">汽车用品</a>
+						<a href="product-view.html">法国德菲丝松露精品巧克力500g/盒</a>
 					</dd>
 				</dl>
 			</div>
@@ -108,6 +62,10 @@
 				<div class="buy">
 					<p>
 						商城价：<span class="price"><%=e.getEPPrice() %></span>
+					</p>
+					
+					<p>
+						销售数量：<span class="price"><%=e.getEPSaleNum() %></span>
 					</p>
 					<p>库 存：<%=e.getEPStock() %></p>
 

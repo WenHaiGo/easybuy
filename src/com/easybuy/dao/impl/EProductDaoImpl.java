@@ -81,6 +81,7 @@ public class EProductDaoImpl implements EProductDao {
 				ep.setEPName(rs.getString("ep_name"));
 				ep.setEPStock(rs.getInt("ep_stock"));
 				ep.setIsSpecialPrice(rs.getInt("is_special_price"));
+				ep.setEPSaleNum(rs.getInt("ep_sale_number"));
 
 			}
 		} catch (SQLException e) {

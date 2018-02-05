@@ -1,27 +1,29 @@
-
-		
-$(function() {document.getElementById("header").innerHTML='<div id="logo">'+
-	'<a href="http://localhost:8080/yimai/index.html"><img src="images/logo.gif" /></a>'+
-'</div>'+
-'<div class="help">'+
-'<a href="#" class="shopping">购物车</a> <a href="login.html">登录</a> <a'+
-	'href="register.html">注册</a> <a href="guestbook.html">留言</a>'+
-'</div>'+
-'<div class="navbar">'+
-'<ul class="clearfix">'+
-	'<li class="current"><a href="#">首页</a></li>'+
-	'<li><a href="#">图书</a></li>'+
-	'<li><a href="#">百货</a></li>'+
-	'<li><a href="#">品牌</a></li>'+
-	'<li><a href="#">促销</a></li>'+
-'</ul>'+
-'</div>'})
-
+$(function() {
+	
+	//加载头部文件
+	document.getElementById("header").innerHTML = '<div id="logo">'
+			+ '<a href="http://localhost:8080/yimai/index.html"><img src="images/logo.gif" /></a>'
+			+ '</div>'
+			+ '<div class="help">'
+			+ '<a href="#" class="shopping">购物车</a> <a href="login.html">登录</a> <a'
+			+ 'href="register.html">注册</a> <a href="guestbook.html">留言</a>'
+			+ '</div>' + '<div class="navbar">' + '<ul class="clearfix">'
+			+ '<li class="current"><a href="#">首页</a></li>'
+			+ '<li><a href="#">图书</a></li>' + '<li><a href="#">百货</a></li>'
+			+ '<li><a href="#">品牌</a></li>' + '<li><a href="#">促销</a></li>'
+			+ '</ul>' + '</div>'
+			+'<div id="childNav"></div>'
+			
+			
+	//加载顶部常用菜单栏
+			document.getElementById("childNav").innerHTML = '<div class="wrap">'
+				+ '<ul class="clearfix" id="topNav"> </ul></div>'
+})
 
 $(function() {
 
 	$
-			.ajax({
+				.ajax({
 				url : 'ProductServlet',
 				type : 'post',
 				data : {
@@ -38,7 +40,9 @@ $(function() {
 								.append(
 										'<li>'
 												+ '<dl>'
-												+ '<dt><a href="ProductServlet?param=productView&EPId=1" target="_blank"><img src=' + data[i].EPFile + ' /></a></dt>'
+												+ '<dt><a href="ProductServlet?param=productView&EPId=1" target="_blank"><img src='
+												+ data[i].EPFile
+												+ ' /></a></dt>'
 												+ '<dd class="title"><a href="ProductServlet?param=productView&EPId=1" target="_blank">'
 												+ data[i].EPName
 												+ '</a></dd>'
@@ -54,26 +58,25 @@ $(function() {
 	// 得到用户名
 
 	// 获取新闻题目列表信息
-	$
-			.ajax({
-				url : 'ShowNewsServlet',
-				type : 'post',
-				data : {
-					param : 'newsListPage',
-				},
-				dataType : 'json',
-				success : function(data) {
+	$.ajax({
+		url : 'ShowNewsServlet',
+		type : 'post',
+		data : {
+			param : 'newsListPage',
+		},
+		dataType : 'json',
+		success : function(data) {
 
-					// 加载新闻标题列表
-					for (var i = 0; i < data.length; i++) {
-						var href = 'ShowNewsServlet?param=newsDetailPage&newsTitle='
-								+ data[i].ENTitle;
-						$("#showNews").append(
-								'<li><a href=' + href + '>'
-										+ data[i].ENTitle + '</a></li>');
-					}
-				}
-			})
+			// 加载新闻标题列表
+			for (var i = 0; i < data.length; i++) {
+				var href = 'ShowNewsServlet?param=newsDetailPage&newsTitle='
+						+ data[i].ENTitle;
+				$("#showNews").append(
+						'<li><a href=' + href + '>' + data[i].ENTitle
+								+ '</a></li>');
+			}
+		}
+	})
 
 	// 加载分类上栏和下栏
 
@@ -92,8 +95,8 @@ $(function() {
 				// 加载顶部的菜单分类
 				if (data[i].EPCIsOften == 1) {
 					$("#topNav").append(
-							'<li><a href=product-list.html>'
-									+ data[i].EPCName + '</a></li>');
+							'<li><a href=product-list.html>' + data[i].EPCName
+									+ '</a></li>');
 				}
 
 				// 加载左侧分类信息：
@@ -102,15 +105,13 @@ $(function() {
 				// data[i].EPCId==1表示图书音像分类，
 				if (data[i].EPCId == 1) {
 
-					$("#leftNav")
-							.append('<dt>' + data[i].EPCName + '</dt>');
+					$("#leftNav").append('<dt>' + data[i].EPCName + '</dt>');
 					// 加载所有子类 注意优化代码减少不必要的循环
 					for (var j = 0; j < data.length; j++) {
 						if (data[j].EPCParentId == 1) {
 							$("#leftNav").append(
 									'<dd><a href = "product-list.html" >'
-											+ data[j].EPCName
-											+ ' </a> </dd>')
+											+ data[j].EPCName + ' </a> </dd>')
 						}
 
 					}
@@ -118,15 +119,13 @@ $(function() {
 				}
 				// data[i].EPCId==2表示百货分类
 				if (data[i].EPCId == 2) {
-					$("#leftNav")
-							.append('<dt>' + data[i].EPCName + '</dt>');
+					$("#leftNav").append('<dt>' + data[i].EPCName + '</dt>');
 
 					for (var j = 0; j < data.length; j++) {
 						if (data[j].EPCParentId == 2) {
 							$("#leftNav").append(
 									'<dd><a href = "product-list.html" >'
-											+ data[j].EPCName
-											+ ' </a> </dd>')
+											+ data[j].EPCName + ' </a> </dd>')
 						}
 
 					}
@@ -138,78 +137,73 @@ $(function() {
 
 })
 
-
-
 // JavaScript Document
-window.onload = function(){
+window.onload = function() {
 	showChater();
 	scrollChater();
 }
 window.onscroll = scrollChater;
 window.onresize = scrollChater;
 
-function FocusItem(obj)
-{
+function FocusItem(obj) {
 	obj.parentNode.parentNode.className = "current";
 	var msgBox = obj.parentNode.getElementsByTagName("span")[0];
 	msgBox.innerHTML = "";
 	msgBox.className = "";
 }
 
-function CheckItem(obj)
-{
+function CheckItem(obj) {
 	obj.parentNode.parentNode.className = "";
 	var msgBox = obj.parentNode.getElementsByTagName("span")[0];
-	switch(obj.name) {
-		case "userName":
-			if(obj.value == "") {
-				msgBox.innerHTML = "用户名不能为空";
-				msgBox.className = "error";
-				return false;
-			}
-			break;
-		case "passWord":
-			if(obj.value == "") {
-				msgBox.innerHTML = "密码不能为空";
-				msgBox.className = "error";
-				return false;
-			}
-			break;
-		case "rePassWord":
-			if(obj.value == "") {
-				msgBox.innerHTML = "确认密码不能为空";
-				msgBox.className = "error";
-				return false;
-			} else if(obj.value != document.getElementById("passWord").value) {
-				msgBox.innerHTML = "两次输入的密码不相同";
-				msgBox.className = "error";
-				return false;
-			}
-			break;
-		case "veryCode":
-			if(obj.value == "") {
-				msgBox.innerHTML = "验证码不能为空";
-				msgBox.className = "error";
-				return false;
-			}
-			break;
+	switch (obj.name) {
+	case "userName":
+		if (obj.value == "") {
+			msgBox.innerHTML = "用户名不能为空";
+			msgBox.className = "error";
+			return false;
+		}
+		break;
+	case "passWord":
+		if (obj.value == "") {
+			msgBox.innerHTML = "密码不能为空";
+			msgBox.className = "error";
+			return false;
+		}
+		break;
+	case "rePassWord":
+		if (obj.value == "") {
+			msgBox.innerHTML = "确认密码不能为空";
+			msgBox.className = "error";
+			return false;
+		} else if (obj.value != document.getElementById("passWord").value) {
+			msgBox.innerHTML = "两次输入的密码不相同";
+			msgBox.className = "error";
+			return false;
+		}
+		break;
+	case "veryCode":
+		if (obj.value == "") {
+			msgBox.innerHTML = "验证码不能为空";
+			msgBox.className = "error";
+			return false;
+		}
+		break;
 	}
 	return true;
 }
 
-function checkForm(frm)
-{
+function checkForm(frm) {
 	var els = frm.getElementsByTagName("input");
-	for(var i=0; i<els.length; i++) {
-		if(typeof(els[i].getAttribute("onblur")) == "function") {
-			if(!CheckItem(els[i])) return false;
+	for (var i = 0; i < els.length; i++) {
+		if (typeof (els[i].getAttribute("onblur")) == "function") {
+			if (!CheckItem(els[i]))
+				return false;
 		}
 	}
 	return true;
 }
 
-function showChater()
-{
+function showChater() {
 	var _chater = document.createElement("div");
 	_chater.setAttribute("id", "chater");
 	var _dl = document.createElement("dl");
@@ -226,56 +220,58 @@ function showChater()
 	document.body.appendChild(_chater);
 }
 
-function openRoom()
-{
-	window.open("chat-room.html","chater","status=0,scrollbars=0,menubar=0,location=0,width=600,height=400");
+function openRoom() {
+	window.open("chat-room.html", "chater",
+			"status=0,scrollbars=0,menubar=0,location=0,width=600,height=400");
 }
 
-function scrollChater()
-{
+function scrollChater() {
 	var chater = document.getElementById("chater");
 	var scrollTop = document.documentElement.scrollTop;
 	var scrollLeft = document.documentElement.scrollLeft;
-	chater.style.left = scrollLeft + document.documentElement.clientWidth - 92 + "px";
-	chater.style.top = scrollTop + document.documentElement.clientHeight - 25 + "px";
+	chater.style.left = scrollLeft + document.documentElement.clientWidth - 92
+			+ "px";
+	chater.style.top = scrollTop + document.documentElement.clientHeight - 25
+			+ "px";
 }
 
-function inArray(array, str)
-{
-	for(a in array) {
-		if(array[a] == str) return true;
+function inArray(array, str) {
+	for (a in array) {
+		if (array[a] == str)
+			return true;
 	}
 	return false;
 }
 
-function setCookie(name,value)
-{
-  var Days = 30;
-  var exp  = new Date();
-  exp.setTime(exp.getTime() + Days*24*60*60*1000);
-  document.cookie = name + "="+ escape(value) +";expires="+ exp.toGMTString();
+function setCookie(name, value) {
+	var Days = 30;
+	var exp = new Date();
+	exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+	document.cookie = name + "=" + escape(value) + ";expires="
+			+ exp.toGMTString();
 }
 
-function getCookie(name)
-{
-  var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
-  if(arr != null) return unescape(arr[2]); return null;
+function getCookie(name) {
+	var arr = document.cookie
+			.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+	if (arr != null)
+		return unescape(arr[2]);
+	return null;
 }
 
-function delCookie(name)
-{
-  var exp = new Date();
-  exp.setTime(exp.getTime() - 1);
-  var cval=getCookie(name);
-  if(cval!=null) document.cookie=name +"="+cval+";expires="+exp.toGMTString();
+function delCookie(name) {
+	var exp = new Date();
+	exp.setTime(exp.getTime() - 1);
+	var cval = getCookie(name);
+	if (cval != null)
+		document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 }
 
-function goBuy(id, price)
-{
+function goBuy(id, price) {
 	var newCookie = "";
 	var oldCookie = getCookie("product");
-	if(oldCookie) {
-		if(inArray(oldCookie.split(","), id)) {
+	if (oldCookie) {
+		if (inArray(oldCookie.split(","), id)) {
 			newCookie = oldCookie;
 		} else {
 			newCookie = id + "," + oldCookie;
@@ -287,32 +283,34 @@ function goBuy(id, price)
 	location.href = "shopping.html";
 }
 
-function delShopping(id)
-{
-	var tr = document.getElementById("product_id_"+ id);
+function delShopping(id) {
+	var tr = document.getElementById("product_id_" + id);
 	var oldCookie = getCookie("product");
-	if(oldCookie) {
+	if (oldCookie) {
 		var oldCookieArr = oldCookie.split(",");
 		var newCookieArr = new Array();
-		for(c in oldCookieArr) {
+		for (c in oldCookieArr) {
 			var cookie = parseInt(oldCookieArr[c]);
-			if(cookie != id) newCookieArr.push(cookie);
+			if (cookie != id)
+				newCookieArr.push(cookie);
 		}
 		var newCookie = newCookieArr.join(",");
 		setCookie("product", newCookie);
 	}
-	if(tr) tr.parentNode.removeChild(tr);
+	if (tr)
+		tr.parentNode.removeChild(tr);
 }
 
-function reloadPrice(id, status)
-{
-	var price = document.getElementById("price_id_" + id).getElementsByTagName("input")[0].value;
-	var priceBox = document.getElementById("price_id_" + id).getElementsByTagName("span")[0];
+function reloadPrice(id, status) {
+	var price = document.getElementById("price_id_" + id).getElementsByTagName(
+			"input")[0].value;
+	var priceBox = document.getElementById("price_id_" + id)
+			.getElementsByTagName("span")[0];
 	var number = document.getElementById("number_id_" + id);
-	if(status) {
+	if (status) {
 		number.value++;
 	} else {
-		if(number.value == 1) {
+		if (number.value == 1) {
 			return false;
 		} else {
 			number.value--;
@@ -320,10 +318,5 @@ function reloadPrice(id, status)
 	}
 	priceBox.innerHTML = "￥" + price * number.value;
 }
-
-
-
-
-
 
 // ajax代码
