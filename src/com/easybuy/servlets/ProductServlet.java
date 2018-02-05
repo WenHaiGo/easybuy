@@ -38,6 +38,7 @@ public class ProductServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.setContentType("text/html;charset=utf-8");
 		String param = request.getParameter("param");
 		EProductServiceImpl epService = new EProductServiceImpl();
 		if (param != null && param.equals("specialProduct")) {
@@ -67,14 +68,23 @@ public class ProductServlet extends HttpServlet {
 		}
 
 		if (param != null && param.equals("productCateg")) {
-			response.setContentType("text/html;charset=utf-8");
-			response.setCharacterEncoding("utf-8");
 			List<EPCateg> list = epService.getCateg();
 			Gson gson = new Gson();
 			String productCategList = gson.toJson(list);
 			System.out.println("hahahhaha" + productCategList);
 			response.getWriter().write(productCategList);
 
+		}
+		
+		if(param!=null&&param.equals("hotProduct"))
+		{
+			List<EProduct> list = epService.getHotProduct(99);
+			System.out.println(list.size());
+			// 将list转换为json来一波
+			Gson gson = new Gson();
+			String productList = gson.toJson(list);
+			System.out.println("山沟是" + productList);
+			response.getWriter().write(productList);
 		}
 
 	}

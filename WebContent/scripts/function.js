@@ -1,6 +1,6 @@
 $(function() {
-	
-	//加载头部文件
+
+	// 加载头部文件
 	document.getElementById("header").innerHTML = '<div id="logo">'
 			+ '<a href="http://localhost:8080/yimai/index.html"><img src="images/logo.gif" /></a>'
 			+ '</div>'
@@ -11,19 +11,17 @@ $(function() {
 			+ '<li class="current"><a href="#">首页</a></li>'
 			+ '<li><a href="#">图书</a></li>' + '<li><a href="#">百货</a></li>'
 			+ '<li><a href="#">品牌</a></li>' + '<li><a href="#">促销</a></li>'
-			+ '</ul>' + '</div>'
-			+'<div id="childNav"></div>'
-			
-			
-	//加载顶部常用菜单栏
-			document.getElementById("childNav").innerHTML = '<div class="wrap">'
-				+ '<ul class="clearfix" id="topNav"> </ul></div>'
-})
+			+ '</ul>' + '</div>' + '<div id="childNav"></div>'
 
+	// 加载顶部常用菜单栏
+	document.getElementById("childNav").innerHTML = '<div class="wrap">'
+			+ '<ul class="clearfix" id="topNav"> </ul></div>'
+})
+// ajax代码
 $(function() {
 
 	$
-				.ajax({
+			.ajax({
 				url : 'ProductServlet',
 				type : 'post',
 				data : {
@@ -135,6 +133,38 @@ $(function() {
 		}
 	})
 
+	// 加载热卖商品
+	$
+			.ajax({
+				url : 'ProductServlet',
+				type : 'post',
+				data : {
+					param : 'hotProduct',
+				},
+				dataType : 'json',
+				success : function(data) {
+					// 从前端传来一个json里面是商品的所有信息。然后使用jquery读出来
+
+					// 这里data应该是一个list集合
+
+					for (var i = 0; i < data.length; i++) {
+						$("#hotProduct")
+								.append(
+										'<li>'
+												+ '<dl>'
+												+ '<dt><a href="ProductServlet?param=productView&EPId=1" target="_blank"><img src='
+												+ data[i].EPFile
+												+ ' /></a></dt>'
+												+ '<dd class="title"><a href="ProductServlet?param=productView&EPId=1" target="_blank">'
+												+ data[i].EPName
+												+ '</a></dd>'
+												+ '<dd class="price">￥108.0</dd>'
+												+ '</dl></li>')
+					}
+
+				}
+
+			})
 })
 
 // JavaScript Document
