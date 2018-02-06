@@ -40,13 +40,13 @@ $(function() {
 								.append(
 										'<li>'
 												+ '<dl>'
-												+ '<dt><a href="ProductServlet?param=productView&EPId=1" target="_blank"><img src='
+												+ '<dt><a href="ProductServlet?param=productView&EPId='+data[i].EPId+'" target="_blank"><img src='
 												+ data[i].EPFile
 												+ ' /></a></dt>'
 												+ '<dd class="title"><a href="ProductServlet?param=productView&EPId=1" target="_blank">'
 												+ data[i].EPName
 												+ '</a></dd>'
-												+ '<dd class="price">￥108.0</dd>'
+												+ '<dd class="price">'+data[i].EPPrice+'</dd>'
 												+ '</dl></li>')
 					}
 
