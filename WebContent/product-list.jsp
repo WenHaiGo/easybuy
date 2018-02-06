@@ -62,11 +62,11 @@
 					<li>
 						<dl>
 							<dt>
-								<a href="product-view.html" target="_blank"><img
+								<a href="ProductServlet?param=productView&EPId=<%=categProducts.get(i).getEPId() %>" target="_blank"><img
 									src="<%=categProducts.get(i).getEPFile() %>" /></a>
 							</dt>
 							<dd class="title">
-								<a href="product-view.html" target="_blank"><%=categProducts.get(i).getEPName() %></a>
+								<a href="ProductServlet?param=productView&EPId=<%=categProducts.get(i).getEPId() %>" target="_blank"><%=categProducts.get(i).getEPName() %></a>
 							</dd>
 							<dd class="price"><%=categProducts.get(i).getEPPrice() %></dd>
 						</dl>
