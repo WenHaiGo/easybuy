@@ -108,7 +108,7 @@ public class EProductDaoImpl implements EProductDao {
 		// TODO Auto-generated method stub
 
 		sql = "select * from e_category";
-		
+
 		List<EPCateg> list = new LinkedList<>();
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -128,10 +128,10 @@ public class EProductDaoImpl implements EProductDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		finally {
 			try {
-				DBUtil.DBclose(conn, pstm,rs);
+				DBUtil.DBclose(conn, pstm, rs);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -143,13 +143,53 @@ public class EProductDaoImpl implements EProductDao {
 	@Override
 	public List<EProduct> getHotProduct(int saleNum) {
 		// TODO Auto-generated method stub
-		//定义热卖的多少是否支持改变还是写死？
+		// 定义热卖的多少是否支持改变还是写死？
 		sql = "select * from e_product where ep_sale_number >?";
 		List<EProduct> list = new LinkedList<>();
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, saleNum);
-			
+
+			rs = pstm.executeQuery();
+			while (rs.next()) {
+				EProduct ep = new EProduct();
+				ep = new EProduct();
+				ep.setEPCChildId(rs.getInt("epc_child_id"));
+				ep.setEPCId(rs.getInt("epc_id"));
+				ep.setEPDesc(rs.getString("ep_description"));
+				ep.setEPFile(rs.getString("ep_file_name"));
+				ep.setEPId(rs.getInt("ep_id"));
+				ep.setEPPrice(rs.getInt("ep_price"));
+				ep.setEPName(rs.getString("ep_name"));
+				ep.setEPStock(rs.getInt("ep_stock"));
+				ep.setIsSpecialPrice(rs.getInt("is_special_price"));
+				ep.setEPSaleNum(rs.getInt("ep_sale_number"));
+
+				list.add(ep);
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				DBUtil.DBclose(conn, pstm, rs);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<EProduct> getCategProduct(int EPCId) {
+		// TODO Auto-generated method stub
+		sql = "select * from e_product where epc_child_id =?";
+		List<EProduct> list = new LinkedList<>();
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, EPCId);
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				EProduct ep = new EProduct();
@@ -166,8 +206,8 @@ public class EProductDaoImpl implements EProductDao {
 				ep.setEPSaleNum(rs.getInt("ep_sale_number"));
 				
 				list.add(ep);
-				
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

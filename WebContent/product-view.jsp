@@ -14,12 +14,6 @@
 	<div id="header" class="wrap">
 	<!--从js里面加载头部页面  -->
 	</div>
-	<div id="childNav">
-		<div class="wrap">
-			<ul class="clearfix" id="topNav">
-			</ul>
-		</div>
-	</div>
 	<div id="position" class="wrap">
 		您现在的位置：<a href="index.html">易买网</a> &gt; <a href="product-list.html">图书音像</a>
 		&gt; 图书

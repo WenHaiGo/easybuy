@@ -20,6 +20,8 @@ $(function() {
 // ajax代码
 $(function() {
 
+	
+	//读取特价商品
 	$
 			.ajax({
 				url : 'ProductServlet',
@@ -55,6 +57,8 @@ $(function() {
 	// 失去焦点的时候利用ajax判断用户名是否存在【注意】网络太慢应该会导致延迟
 	// 得到用户名
 
+			
+			
 	// 获取新闻题目列表信息
 	$.ajax({
 		url : 'ShowNewsServlet',
@@ -93,7 +97,7 @@ $(function() {
 				// 加载顶部的菜单分类
 				if (data[i].EPCIsOften == 1) {
 					$("#topNav").append(
-							'<li><a href=product-list.html>' + data[i].EPCName
+							'<li><a href=ProductServlet?param=categ&pid='+data[i].EPCId +'>  '+ data[i].EPCName
 									+ '</a></li>');
 				}
 
@@ -108,8 +112,8 @@ $(function() {
 					for (var j = 0; j < data.length; j++) {
 						if (data[j].EPCParentId == 1) {
 							$("#leftNav").append(
-									'<dd><a href = "product-list.html" >'
-											+ data[j].EPCName + ' </a> </dd>')
+							'<li><a href=ProductServlet?param=categ&EPCId='+data[j].EPCId +'>  '+ data[j].EPCName
+									+ '</a></li>');
 						}
 
 					}
@@ -122,8 +126,8 @@ $(function() {
 					for (var j = 0; j < data.length; j++) {
 						if (data[j].EPCParentId == 2) {
 							$("#leftNav").append(
-									'<dd><a href = "product-list.html" >'
-											+ data[j].EPCName + ' </a> </dd>')
+							'<li><a href=ProductServlet?param=categ&pid='+data[j].EPCId +'>  '+ data[j].EPCName
+									+ '</a></li>');
 						}
 
 					}
