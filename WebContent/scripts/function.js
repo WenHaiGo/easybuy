@@ -97,7 +97,7 @@ $(function() {
 				// 加载顶部的菜单分类
 				if (data[i].EPCIsOften == 1) {
 					$("#topNav").append(
-							'<li><a href=ProductServlet?param=categ&pid='+data[i].EPCId +'>  '+ data[i].EPCName
+							'<li><a href=ProductServlet?param=categ&EPCId='+data[i].EPCId +'>  '+ data[i].EPCName
 									+ '</a></li>');
 				}
 
@@ -126,7 +126,7 @@ $(function() {
 					for (var j = 0; j < data.length; j++) {
 						if (data[j].EPCParentId == 2) {
 							$("#leftNav").append(
-							'<li><a href=ProductServlet?param=categ&pid='+data[j].EPCId +'>  '+ data[j].EPCName
+							'<li><a href=ProductServlet?param=categ&EPCId='+data[j].EPCId +'>  '+ data[j].EPCName
 									+ '</a></li>');
 						}
 
