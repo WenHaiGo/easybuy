@@ -72,16 +72,7 @@ public class EProductDaoImpl implements EProductDao {
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				ep = new EProduct();
-				ep.setEPCChildId(rs.getInt("epc_child_id"));
-				ep.setEPCId(rs.getInt("epc_id"));
-				ep.setEPDesc(rs.getString("ep_description"));
-				ep.setEPFile(rs.getString("ep_file_name"));
-				ep.setEPId(rs.getInt("ep_id"));
-				ep.setEPPrice(rs.getInt("ep_price"));
-				ep.setEPName(rs.getString("ep_name"));
-				ep.setEPStock(rs.getInt("ep_stock"));
-				ep.setIsSpecialPrice(rs.getInt("is_special_price"));
-				ep.setEPSaleNum(rs.getInt("ep_sale_number"));
+				ep = productAssign(ep, rs);
 
 			}
 		} catch (SQLException e) {
@@ -102,7 +93,26 @@ public class EProductDaoImpl implements EProductDao {
 		// TODO Auto-generated method stub
 
 	}
-
+	EProduct productAssign(EProduct ep,ResultSet rs)
+	{
+		try {
+			ep.setEPCChildId(rs.getInt("epc_child_id"));
+			ep.setEPCId(rs.getInt("epc_id"));
+			ep.setEPDesc(rs.getString("ep_description"));
+			ep.setEPFile(rs.getString("ep_file_name"));
+			ep.setEPId(rs.getInt("ep_id"));
+			ep.setEPPrice(rs.getInt("ep_price"));
+			ep.setEPName(rs.getString("ep_name"));
+			ep.setEPStock(rs.getInt("ep_stock"));
+			ep.setIsSpecialPrice(rs.getInt("is_special_price"));
+			ep.setEPSaleNum(rs.getInt("ep_sale_number"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return ep;
+	}
 	@Override
 	public List<EPCateg> getCateg() {
 		// TODO Auto-generated method stub
@@ -153,17 +163,7 @@ public class EProductDaoImpl implements EProductDao {
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				EProduct ep = new EProduct();
-				ep = new EProduct();
-				ep.setEPCChildId(rs.getInt("epc_child_id"));
-				ep.setEPCId(rs.getInt("epc_id"));
-				ep.setEPDesc(rs.getString("ep_description"));
-				ep.setEPFile(rs.getString("ep_file_name"));
-				ep.setEPId(rs.getInt("ep_id"));
-				ep.setEPPrice(rs.getInt("ep_price"));
-				ep.setEPName(rs.getString("ep_name"));
-				ep.setEPStock(rs.getInt("ep_stock"));
-				ep.setIsSpecialPrice(rs.getInt("is_special_price"));
-				ep.setEPSaleNum(rs.getInt("ep_sale_number"));
+				ep = productAssign(ep, rs);
 
 				list.add(ep);
 
@@ -193,18 +193,7 @@ public class EProductDaoImpl implements EProductDao {
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				EProduct ep = new EProduct();
-				ep = new EProduct();
-				ep.setEPCChildId(rs.getInt("epc_child_id"));
-				ep.setEPCId(rs.getInt("epc_id"));
-				ep.setEPDesc(rs.getString("ep_description"));
-				ep.setEPFile(rs.getString("ep_file_name"));
-				ep.setEPId(rs.getInt("ep_id"));
-				ep.setEPPrice(rs.getInt("ep_price"));
-				ep.setEPName(rs.getString("ep_name"));
-				ep.setEPStock(rs.getInt("ep_stock"));
-				ep.setIsSpecialPrice(rs.getInt("is_special_price"));
-				ep.setEPSaleNum(rs.getInt("ep_sale_number"));
-				
+				ep = productAssign(ep, rs);
 				list.add(ep);
 			}
 			
@@ -221,6 +210,12 @@ public class EProductDaoImpl implements EProductDao {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public List<EProduct> getAllCartProduct() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
