@@ -1,11 +1,13 @@
 $(function() {
 
+	// 判断注册信息
+
 	// 加载头部文件
 	document.getElementById("header").innerHTML = '<div id="logo">'
-			+ '<a href="http://localhost:8080/yimai/index.html"><img src="images/logo.gif" /></a>'
+			+ '<a href="index.html"><img src="images/logo.gif" /></a>'
 			+ '</div>'
 			+ '<div class="help">'
-			+ '<a href="#" class="shopping">购物车</a> <a href="login.html">登录</a> <a'
+			+ '<a href="cart.html" class="shopping">购物车</a> <a href="login.html">登录</a> <a'
 			+ 'href="register.html">注册</a> <a href="guestbook.html">留言</a>'
 			+ '</div>' + '<div class="navbar">' + '<ul class="clearfix">'
 			+ '<li class="current"><a href="#">首页</a></li>'
@@ -20,8 +22,7 @@ $(function() {
 // ajax代码
 $(function() {
 
-	
-	//读取特价商品
+	// 读取特价商品
 	$
 			.ajax({
 				url : 'ProductServlet',
@@ -40,13 +41,15 @@ $(function() {
 								.append(
 										'<li>'
 												+ '<dl>'
-												+ '<dt><a href="ProductServlet?param=productView&EPId='+data[i].EPId+'" target="_blank"><img src='
+												+ '<dt><a href="ProductServlet?param=productView&EPId='
+												+ data[i].EPId
+												+ '" target="_blank"><img src='
 												+ data[i].EPFile
 												+ ' /></a></dt>'
 												+ '<dd class="title"><a href="ProductServlet?param=productView&EPId=1" target="_blank">'
-												+ data[i].EPName
-												+ '</a></dd>'
-												+ '<dd class="price">'+data[i].EPPrice+'</dd>'
+												+ data[i].EPName + '</a></dd>'
+												+ '<dd class="price">'
+												+ data[i].EPPrice + '</dd>'
 												+ '</dl></li>')
 					}
 
@@ -57,8 +60,6 @@ $(function() {
 	// 失去焦点的时候利用ajax判断用户名是否存在【注意】网络太慢应该会导致延迟
 	// 得到用户名
 
-			
-			
 	// 获取新闻题目列表信息
 	$.ajax({
 		url : 'ShowNewsServlet',
@@ -97,7 +98,8 @@ $(function() {
 				// 加载顶部的菜单分类
 				if (data[i].EPCIsOften == 1) {
 					$("#topNav").append(
-							'<li><a href=ProductServlet?param=categ&EPCId='+data[i].EPCId +'>  '+ data[i].EPCName
+							'<li><a href=ProductServlet?param=categ&EPCId='
+									+ data[i].EPCId + '>  ' + data[i].EPCName
 									+ '</a></li>');
 				}
 
@@ -112,8 +114,9 @@ $(function() {
 					for (var j = 0; j < data.length; j++) {
 						if (data[j].EPCParentId == 1) {
 							$("#leftNav").append(
-							'<li><a href=ProductServlet?param=categ&EPCId='+data[j].EPCId +'>  '+ data[j].EPCName
-									+ '</a></li>');
+									'<li><a href=ProductServlet?param=categ&EPCId='
+											+ data[j].EPCId + '>  '
+											+ data[j].EPCName + '</a></li>');
 						}
 
 					}
@@ -126,8 +129,9 @@ $(function() {
 					for (var j = 0; j < data.length; j++) {
 						if (data[j].EPCParentId == 2) {
 							$("#leftNav").append(
-							'<li><a href=ProductServlet?param=categ&EPCId='+data[j].EPCId +'>  '+ data[j].EPCName
-									+ '</a></li>');
+									'<li><a href=ProductServlet?param=categ&EPCId='
+											+ data[j].EPCId + '>  '
+											+ data[j].EPCName + '</a></li>');
 						}
 
 					}
@@ -189,13 +193,44 @@ function FocusItem(obj) {
 function CheckItem(obj) {
 	obj.parentNode.parentNode.className = "";
 	var msgBox = obj.parentNode.getElementsByTagName("span")[0];
+	var EUId = obj.value;
 	switch (obj.name) {
 	case "userName":
-		if (obj.value == "") {
-			msgBox.innerHTML = "用户名不能为空";
-			msgBox.className = "error";
-			return false;
-		}
+		$.ajax({
+			url : 'CheckEUIdServlet',
+			type : 'post',
+			data : {
+				EUId : EUId
+			},
+			dataType : 'json',
+			success : function(data) {
+				var isExist = data.isExist;
+				alert(EUId);
+			
+				if (EUId=='') {
+					$(msgBox).html('用户名不可以为空');
+					$(msgBox).addClass('error');
+				}
+				else if (isExist) {
+					$(msgBox).html('该用户名已经存在');
+					$(msgBox).addClass('error');
+				}
+
+				else {
+					alert("fvfvf")
+					$(msgBox).html('该用户名可以使用');
+					$(msgBox).addClass('ok');
+				}
+
+				// $("#regInfo").html(regInfo);
+
+			}
+		})
+		// if (obj.value == "") {
+		// msgBox.innerHTML = "用户名不能为空";
+		// msgBox.className = "error";
+		// return false;
+		// }
 		break;
 	case "passWord":
 		if (obj.value == "") {
