@@ -205,7 +205,6 @@ function CheckItem(obj) {
 			dataType : 'json',
 			success : function(data) {
 				var isExist = data.isExist;
-				alert(EUId);
 			
 				if (EUId=='') {
 					$(msgBox).html('用户名不可以为空');
@@ -217,7 +216,6 @@ function CheckItem(obj) {
 				}
 
 				else {
-					alert("fvfvf")
 					$(msgBox).html('该用户名可以使用');
 					$(msgBox).addClass('ok');
 				}
