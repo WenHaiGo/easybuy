@@ -1,7 +1,7 @@
 body {
 	font: 12px/22px Verdana, Geneva, sans-serif;
 	background: #fff;
-	color: #333;
+	color: #0e3313;
 }
 
 body, p, ul, ol, li, dl, dt, dd, input, h1, h2, h3, h4, form, hr {
@@ -90,6 +90,7 @@ a:hover, a:active {
 	height: 8px;
 	overflow: hidden;
 }
+
 /* clearFix */
 .clearfix:after {
 	content: ".";
@@ -106,6 +107,7 @@ a:hover, a:active {
 .clearfix {
 	display: block
 }
+
 /*shadowBox*/
 .shadow {
 	background: #e8e8e8;
@@ -399,7 +401,7 @@ a:hover, a:active {
 }
 
 #register form table td span {
-	display: none;
+	display: block;
 	vertical-align: middle;
 	margin-left: 10px;
 	padding-left: 22px;
@@ -411,6 +413,12 @@ a:hover, a:active {
 	display: inline-block;
 	border: 1px solid #ff835a;
 	background-color: #ffe8e0;
+}
+
+#register form table td span.ok {
+	display: inline-block;
+	color: #7aff4a;
+	background:none;
 }
 
 #register form table .current {
