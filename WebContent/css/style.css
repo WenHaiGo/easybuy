@@ -416,9 +416,12 @@ a:hover, a:active {
 }
 
 #register form table td span.ok {
+	
 	display: inline-block;
-	color: #7aff4a;
+	font-size：250%;
+	color: #0d19f1;
 	background:none;
+	
 }
 
 #register form table .current {
