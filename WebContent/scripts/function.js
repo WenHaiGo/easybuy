@@ -195,7 +195,7 @@ function CheckItem(obj) {
 	var msgBox = obj.parentNode.getElementsByTagName("span")[0];
 	var EUId = obj.value;
 	switch (obj.name) {
-	case "userName":
+	case "EUId":
 		$.ajax({
 			url : 'CheckEUIdServlet',
 			type : 'post',
@@ -210,7 +210,7 @@ function CheckItem(obj) {
 					$(msgBox).html('用户名不可以为空');
 					$(msgBox).addClass('error');
 				}
-				else if (isExist) {
+					else if (isExist) {
 					$(msgBox).html('该用户名已经存在');
 					$(msgBox).addClass('error');
 				}
@@ -230,11 +230,15 @@ function CheckItem(obj) {
 		// return false;
 		// }
 		break;
-	case "passWord":
+	case "EUPwd":
 		if (obj.value == "") {
 			msgBox.innerHTML = "密码不能为空";
 			msgBox.className = "error";
 			return false;
+		}
+		else{
+			msgBox.innerHTML = "可以使用";
+			msgBox.className = "ok";
 		}
 		break;
 	case "rePassWord":
@@ -246,6 +250,9 @@ function CheckItem(obj) {
 			msgBox.innerHTML = "两次输入的密码不相同";
 			msgBox.className = "error";
 			return false;
+		}else{
+			msgBox.innerHTML = "可以使用";
+			msgBox.className = "ok";
 		}
 		break;
 	case "veryCode":
