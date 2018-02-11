@@ -185,6 +185,7 @@ window.onresize = scrollChater;
 
 // 注册信息：
 function checkLogin(obj) {
+	
 	var EUPwdtt = document.getElementById("password");
 	var EUIdtt = document.getElementById("userName");
 	var EUPwd = EUPwdtt.value;
@@ -201,7 +202,7 @@ function checkLogin(obj) {
 		success : function(data) {
 			if(data.isExist==false)
 				{
-					obj.append('<td>密码错误</td>')
+					$("#loginSpan").show();
 				}
 			else{
 				window.location.href='index.html';
