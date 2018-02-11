@@ -183,14 +183,41 @@ window.onload = function() {
 window.onscroll = scrollChater;
 window.onresize = scrollChater;
 
-function FocusItem(obj) {
+// 注册信息：
+function checkLogin(obj) {
+	var EUPwdtt = document.getElementById("password");
+	var EUIdtt = document.getElementById("userName");
+	var EUPwd = EUPwdtt.value;
+	var EUId = EUIdtt.value;
+	$.ajax({
+		url : 'UserServlet',
+		type : 'post',
+		data : {
+			param : "login",
+			EUId : EUId,
+			EUPwd:EUPwd
+		},
+		dataType : 'json',
+		success : function(data) {
+			if(data.isExist==false)
+				{
+					obj.append('<td>密码错误</td>')
+				}
+			else{
+				window.location.href='index.html';
+			}
+		}
+	})
+
+}
+function focusItem(obj) {
 	obj.parentNode.parentNode.className = "current";
 	var msgBox = obj.parentNode.getElementsByTagName("span")[0];
 	msgBox.innerHTML = "";
 	msgBox.className = "";
 }
 
-function CheckItem(obj) {
+function checkItem(obj) {
 	obj.parentNode.parentNode.className = "";
 	var msgBox = obj.parentNode.getElementsByTagName("span")[0];
 	var EUId = obj.value;
@@ -205,12 +232,11 @@ function CheckItem(obj) {
 			dataType : 'json',
 			success : function(data) {
 				var isExist = data.isExist;
-			
-				if (EUId=='') {
+
+				if (EUId == '') {
 					$(msgBox).html('用户名不可以为空');
 					$(msgBox).addClass('error');
-				}
-					else if (isExist) {
+				} else if (isExist) {
 					$(msgBox).html('该用户名已经存在');
 					$(msgBox).addClass('error');
 				}
@@ -235,8 +261,7 @@ function CheckItem(obj) {
 			msgBox.innerHTML = "密码不能为空";
 			msgBox.className = "error";
 			return false;
-		}
-		else{
+		} else {
 			msgBox.innerHTML = "可以使用";
 			msgBox.className = "ok";
 		}
@@ -250,7 +275,7 @@ function CheckItem(obj) {
 			msgBox.innerHTML = "两次输入的密码不相同";
 			msgBox.className = "error";
 			return false;
-		}else{
+		} else {
 			msgBox.innerHTML = "可以使用";
 			msgBox.className = "ok";
 		}
@@ -265,17 +290,17 @@ function CheckItem(obj) {
 	}
 	return true;
 }
-
-function checkForm(frm) {
-	var els = frm.getElementsByTagName("input");
-	for (var i = 0; i < els.length; i++) {
-		if (typeof (els[i].getAttribute("onblur")) == "function") {
-			if (!CheckItem(els[i]))
-				return false;
-		}
-	}
-	return true;
-}
+// 这段代码是干什么的了？？我都用ajax实现了还有检查form表单的作用了吗
+// function checkForm(frm) {
+// var els = frm.getElementsByTagName("input");
+// for (var i = 0; i < els.length; i++) {
+// if (typeof (els[i].getAttribute("onblur")) == "function") {
+// if (!CheckItem(els[i]))
+// return false;
+// }
+// }
+// return true;
+// }
 
 function showChater() {
 	var _chater = document.createElement("div");
