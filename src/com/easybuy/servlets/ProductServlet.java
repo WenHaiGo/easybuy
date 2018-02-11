@@ -40,24 +40,19 @@ public class ProductServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=utf-8");
 		String param = request.getParameter("param");
-		System.out.println("11111111111传入的参数是11111110"+param);
 		
 		EProductServiceImpl epService = new EProductServiceImpl();
 		if (param != null && param.equals("specialProduct")) {
 			// 这个参数真的不应该传入，既然变量名都是特卖的了为什么还要传入参数啊 传入参数和不传入参数会不会影响性能啊
 			List<EProduct> list = epService.getSpecialSaleProduct(1);
-			System.out.println(list.size());
 			// 将list转换为json来一波
 			Gson gson = new Gson();
 			String productList = gson.toJson(list);
-			System.out.println("山沟是" + productList);
 			response.getWriter().write(productList);
 		}
 
 		if (param != null && param.equals("productView")) {
-			System.out.println("nihao");
 			String str = request.getParameter("EPId");
-			System.err.println(str);
 			if (str != null) {
 				int EPID = Integer.parseInt(str);
 				// 根据商品id得到该id商品所有的商品信息。
@@ -73,29 +68,24 @@ public class ProductServlet extends HttpServlet {
 			List<EPCateg> list = epService.getCateg();
 			Gson gson = new Gson();
 			String productCategList = gson.toJson(list);
-			System.out.println("hahahhaha" + productCategList);
 			response.getWriter().write(productCategList);
 
 		}
 
 		if (param != null && param.equals("hotProduct")) {
 			List<EProduct> list = epService.getHotProduct(99);
-			System.out.println(list.size());
 			// 将list转换为json来一波
 			Gson gson = new Gson();
 			String productList = gson.toJson(list);
-			System.out.println("山沟是" + productList);
 			response.getWriter().write(productList);
 		}
 
 		if (param != null && param.equals("categ")) {
-			System.out.println("================================");
 			// 获取子类的id
 			String str = request.getParameter("EPCId");
 			// 如何判断一定是数字字符串？
 			int EPCId = Integer.parseInt(str);
 
-			System.out.println("子分类是" + EPCId);
 
 			List<EProduct> list = epService.getCategProduct(EPCId);
 
