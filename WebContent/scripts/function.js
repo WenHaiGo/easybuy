@@ -3,60 +3,62 @@ $(function() {
 	// 判断注册信息
 
 	// 加载头部文件
-	document.getElementById("header").innerHTML = '<div id="logo">'
-			+ '<a href="index.html"><img src="images/logo.gif" /></a>'
-			+ '</div>'
-			+ '<div class="help">'
-			+ '<a href="cart.html" class="shopping">购物车</a> <a href="login.html">登录</a> <a'
-			+ 'href="register.html">注册</a> <a href="guestbook.html">留言</a>'
-			+ '</div>' + '<div class="navbar">' + '<ul class="clearfix">'
-			+ '<li class="current"><a href="#">首页</a></li>'
-			+ '<li><a href="#">图书</a></li>' + '<li><a href="#">百货</a></li>'
-			+ '<li><a href="#">品牌</a></li>' + '<li><a href="#">促销</a></li>'
-			+ '</ul>' + '</div>' + '<div id="childNav"></div>'
 
 	// 加载顶部常用菜单栏
 	document.getElementById("childNav").innerHTML = '<div class="wrap">'
 			+ '<ul class="clearfix" id="topNav"> </ul></div>'
 })
+function productViewAppend(whichTag, data) {
+	for (var i = 0; i < data.length; i++) {
+		var productViewCons = '<li>'
+				+ '<dl>'
+				+ '<dt><a href="ProductServlet?param=productView&EPId='
+				+ data[i].EPId
+				+ '" target="_blank"><img src='
+				+ data[i].EPFile
+				+ ' /></a></dt>'
+				+ '<dd class="title"><a href="ProductServlet?param=productView&EPId='
+				+ data[i].EPId + '"target="_blank">' + data[i].EPName
+				+ '</a></dd>' + '<dd class="price">' + data[i].EPPrice
+				+ '</dd>' + '</dl></li>';
+		$(whichTag).append(productViewCons);
+	}
+}
 // ajax代码
 $(function() {
+	// 定义常量：
 
 	// 读取特价商品
-	$
-			.ajax({
-				url : 'ProductServlet',
-				type : 'post',
-				data : {
-					param : 'specialProduct',
-				},
-				dataType : 'json',
-				success : function(data) {
-					// 从前端传来一个json里面是商品的所有信息。然后使用jquery读出来
+	$.ajax({
+		url : 'ProductServlet',
+		type : 'post',
+		data : {
+			param : 'specialProduct',
+		},
+		dataType : 'json',
+		success : function(data) {
+			productViewAppend("#special_price", data)
 
-					// 这里data应该是一个list集合
+		}
 
-					for (var i = 0; i < data.length; i++) {
-						$("#special_price")
-								.append(
-										'<li>'
-												+ '<dl>'
-												+ '<dt><a href="ProductServlet?param=productView&EPId='
-												+ data[i].EPId
-												+ '" target="_blank"><img src='
-												+ data[i].EPFile
-												+ ' /></a></dt>'
-												+ '<dd class="title"><a href="ProductServlet?param=productView&EPId=1" target="_blank">'
-												+ data[i].EPName + '</a></dd>'
-												+ '<dd class="price">'
-												+ data[i].EPPrice + '</dd>'
-												+ '</dl></li>')
-					}
+	})
+	// 加载热卖商品
+	$.ajax({
+		url : 'ProductServlet',
+		type : 'post',
+		data : {
+			param : 'hotProduct',
+		},
+		dataType : 'json',
+		success : function(data) {
+			// 从前端传来一个json里面是商品的所有信息。然后使用jquery读出来
 
-				}
+			// 这里data应该是一个list集合
+			productViewAppend("#hotProduct", data)
 
-			})
+		}
 
+	})
 	// 失去焦点的时候利用ajax判断用户名是否存在【注意】网络太慢应该会导致延迟
 	// 得到用户名
 
@@ -141,38 +143,6 @@ $(function() {
 		}
 	})
 
-	// 加载热卖商品
-	$
-			.ajax({
-				url : 'ProductServlet',
-				type : 'post',
-				data : {
-					param : 'hotProduct',
-				},
-				dataType : 'json',
-				success : function(data) {
-					// 从前端传来一个json里面是商品的所有信息。然后使用jquery读出来
-
-					// 这里data应该是一个list集合
-
-					for (var i = 0; i < data.length; i++) {
-						$("#hotProduct")
-								.append(
-										'<li>'
-												+ '<dl>'
-												+ '<dt><a href="ProductServlet?param=productView&EPId=1" target="_blank"><img src='
-												+ data[i].EPFile
-												+ ' /></a></dt>'
-												+ '<dd class="title"><a href="ProductServlet?param=productView&EPId=1" target="_blank">'
-												+ data[i].EPName
-												+ '</a></dd>'
-												+ '<dd class="price">￥108.0</dd>'
-												+ '</dl></li>')
-					}
-
-				}
-
-			})
 })
 
 // JavaScript Document
@@ -185,7 +155,7 @@ window.onresize = scrollChater;
 
 // 注册信息：
 function checkLogin(obj) {
-	
+
 	var EUPwdtt = document.getElementById("password");
 	var EUIdtt = document.getElementById("userName");
 	var EUPwd = EUPwdtt.value;
@@ -196,16 +166,14 @@ function checkLogin(obj) {
 		data : {
 			param : "login",
 			EUId : EUId,
-			EUPwd:EUPwd
+			EUPwd : EUPwd
 		},
 		dataType : 'json',
 		success : function(data) {
-			if(data.isExist==false)
-				{
-					$("#loginSpan").show();
-				}
-			else{
-				window.location.href='index.html';
+			if (data.isExist == false) {
+				$("#loginSpan").show();
+			} else {
+				window.location.href = 'login-result.html';
 			}
 		}
 	})
