@@ -19,7 +19,7 @@ public class EProductDaoImpl implements EProductDao {
 
 	Connection conn = DBUtil.getConn();
 	PreparedStatement pstm = null;
-	
+
 	String sql = null;
 
 	@Override
@@ -235,7 +235,7 @@ public class EProductDaoImpl implements EProductDao {
 				System.out.println(rs.getInt("product_id"));
 				EProduct ep = getProductById(rs.getInt("product_id"));
 				list.add(ep);
-				
+
 			}
 
 		} catch (SQLException e) {

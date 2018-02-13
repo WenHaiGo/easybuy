@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.easybuy.model.ECartProduct;
 import com.easybuy.model.EProduct;
 import com.easybuy.service.impl.EProductServiceImpl;
 import com.easybuy.service.impl.EUServiceImpl;
@@ -57,7 +58,7 @@ public class UserActionServlet extends HttpServlet {
 		// clean code 里面说尽量不要做这种判断
 		if (EPUId != null) {
 			List<EProduct> cartProductList = eps.getAllCartProduct(EPUId);
-			System.out.println("购物车商品舒朗为" + cartProductList.size());
+			System.out.println("当前用户购物车商品数量为" + cartProductList.size());
 			request.setAttribute("cartProductList", cartProductList);
 			try {
 				request.getRequestDispatcher("cart.jsp").forward(request, response);
@@ -65,10 +66,12 @@ public class UserActionServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else {
+		}
+		// 未登录点击购物车
+		else {
 			try {
 				// response.sendRedirect("login.jsp");
-				request.setAttribute("fromCart", new Object());
+				request.setAttribute("fromCart", "已经登录了");
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 			} catch (IOException | ServletException e) {
 				// TODO Auto-generated catch block

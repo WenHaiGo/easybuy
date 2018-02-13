@@ -17,6 +17,6 @@ public interface EUDao {
 	boolean save(String EUId, String pwd) throws SQLException;
 
 	public Boolean CheckEUId(String eUId);
-	
+	public Boolean checkEUId(String EUId, String EUPwd);
 	
 }

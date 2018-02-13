@@ -24,4 +24,10 @@ public class EUServiceImpl implements EUService {
 		return dao.CheckEUId(EUId);
 	}
 
+	@Override
+	public Boolean checkEUId(String EUId, String EUPwd) {
+		// TODO Auto-generated method stub
+		return new EUDaoImpl().checkEUId(EUId, EUPwd);
+	}
+
 }

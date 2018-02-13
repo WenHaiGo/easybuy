@@ -54,6 +54,7 @@ public class ProductServlet extends HttpServlet {
 		if (param != null && param.equals("productView")) {
 			String str = request.getParameter("EPId");
 			if (str != null) {
+				System.out.println(str);
 				int EPID = Integer.parseInt(str);
 				// 根据商品id得到该id商品所有的商品信息。
 				EProduct ep = epService.getDetailProduct(EPID);

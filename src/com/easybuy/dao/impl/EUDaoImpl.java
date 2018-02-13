@@ -74,4 +74,35 @@ public class EUDaoImpl implements EUDao {
 		return false;
 	}
 
+	@Override
+	public Boolean checkEUId(String EUId, String EUPwd) {
+		// TODO Auto-generated method stub
+		String  sql  = "select * from eu_user where eu_user_id = ? and eu_password = ?";
+		boolean isExist = false;
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, EUId);
+			pstm.setString(2, EUPwd);
+			rs = pstm.executeQuery();
+			while(rs.next())
+			{
+				isExist = true;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		finally {
+			try {
+				DBUtil.DBclose(conn, pstm,rs);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return isExist;
+	}
+
 }

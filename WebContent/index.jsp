@@ -1,19 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>易买网 - 首页</title>
-<link type="text/css" rel="stylesheet" href="css/style.css" />
 
+<link type="text/css" rel="stylesheet" href="css/style.css" />
 <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="scripts/function.js"></script>
 </head>
-
 <body>
 	<!--我认为必要的代码还是要有的  这样会让人知道页面的基本结构是什么  -->
 	<!--加载头部页面-->
-	<div id="header" class="wrap"></div>
-	<!--加载中间主要页面-->
+	<%@ include file="header.jsp"%>
+	<div id="childNav"></div>
 	<div id="main" class="wrap">
 		<div class="lefter">
 			<!--加载左侧分类页面-->
