@@ -7,8 +7,11 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.print.attribute.Size2DSyntax;
+
 import com.easybuy.dao.EProductDao;
 import com.easybuy.dbutils.DBUtil;
+import com.easybuy.model.ECartProduct;
 import com.easybuy.model.EPCateg;
 import com.easybuy.model.EProduct;
 
@@ -16,13 +19,13 @@ public class EProductDaoImpl implements EProductDao {
 
 	Connection conn = DBUtil.getConn();
 	PreparedStatement pstm = null;
-	ResultSet rs = null;
+	
 	String sql = null;
 
 	@Override
 	public List<EProduct> getSpecialSaleProduct(int isSpecialSale) {
 		// TODO Auto-generated method stub
-
+		ResultSet rs = null;
 		sql = "select * from e_product where is_special_price = ?";
 		List<EProduct> list = null;
 		try {
@@ -63,7 +66,7 @@ public class EProductDaoImpl implements EProductDao {
 
 	@Override
 	public EProduct getDetailProduct(int EPId) {
-
+		ResultSet rs = null;
 		sql = "select * from e_product where ep_id = ?";
 		EProduct ep = null;
 		try {
@@ -93,8 +96,8 @@ public class EProductDaoImpl implements EProductDao {
 		// TODO Auto-generated method stub
 
 	}
-	EProduct productAssign(EProduct ep,ResultSet rs)
-	{
+
+	EProduct productAssign(EProduct ep, ResultSet rs) {
 		try {
 			ep.setEPCChildId(rs.getInt("epc_child_id"));
 			ep.setEPCId(rs.getInt("epc_id"));
@@ -110,13 +113,14 @@ public class EProductDaoImpl implements EProductDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return ep;
 	}
+
 	@Override
 	public List<EPCateg> getCateg() {
 		// TODO Auto-generated method stub
-
+		ResultSet rs = null;
 		sql = "select * from e_category";
 
 		List<EPCateg> list = new LinkedList<>();
@@ -152,6 +156,7 @@ public class EProductDaoImpl implements EProductDao {
 
 	@Override
 	public List<EProduct> getHotProduct(int saleNum) {
+		ResultSet rs = null;
 		// TODO Auto-generated method stub
 		// 定义热卖的多少是否支持改变还是写死？
 		sql = "select * from e_product where ep_sale_number >?";
@@ -184,6 +189,7 @@ public class EProductDaoImpl implements EProductDao {
 
 	@Override
 	public List<EProduct> getCategProduct(int EPCId) {
+		ResultSet rs = null;
 		// TODO Auto-generated method stub
 		sql = "select * from e_product where epc_child_id =?";
 		List<EProduct> list = new LinkedList<>();
@@ -196,14 +202,13 @@ public class EProductDaoImpl implements EProductDao {
 				ep = productAssign(ep, rs);
 				list.add(ep);
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			try {
-				DBUtil.DBclose(conn, pstm,rs);
+				DBUtil.DBclose(conn, pstm, rs);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -213,9 +218,62 @@ public class EProductDaoImpl implements EProductDao {
 	}
 
 	@Override
-	public List<EProduct> getAllCartProduct() {
+	public List<EProduct> getAllCartProduct(String EPUId) {
+		ResultSet rs = null;
 		// TODO Auto-generated method stub
-		return null;
+		sql = "select * from e_cart where user_id = ?";
+		// SELECT * from e_product where ep_id = (select product_id from e_cart where
+		// user_id = '123')
+		List<EProduct> list = new LinkedList<>();
+
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, EPUId);
+			rs = pstm.executeQuery();
+			System.out.println(EPUId);
+			while (rs.next()) {
+				System.out.println(rs.getInt("product_id"));
+				EProduct ep = getProductById(rs.getInt("product_id"));
+				list.add(ep);
+				
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		finally {
+			try {
+				DBUtil.DBclose(conn, pstm, rs);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public EProduct getProductById(int productId) {
+		ResultSet rs = null;
+		// TODO Auto-generated method stub
+		String sql = "select * from e_product where ep_id = ?";
+		EProduct ep = null;
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, productId);
+			rs = pstm.executeQuery();
+			while (rs.next()) {
+				ep = new EProduct();
+				ep = productAssign(ep, rs);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ep;
 	}
 
 }
