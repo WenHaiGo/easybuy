@@ -17,11 +17,7 @@ font {
 <script>
 //商品单价i 商品数量2i  商品总金额：3i
 	function countSumMoney(i) {
-		var buyNumId = 2*i;
-		var sumMoneyId = 3*i;
-		var price = $('#'+i).html();
-		var buyNum = $('#'+buyNumId).val();
-		$('#'+sumMoneyId).html(price);
+	alert(document.getElementById('price'+i).innerHTML);
 		
 		
 
@@ -58,13 +54,13 @@ font {
 								</div>
 						</a></td>
 						<!-- 商品单价 -->
-						<td class="cartPrice" id=<%=i%>><%=cartProductList.get(i).getEPPrice()%>
+						<td class="cartPrice" id="price<%=i%>" ><%=cartProductList.get(i).getEPPrice()%>
 						</td>
 						<!--商品数量   通过ajax获取，可以支持动态改变 -->
-						<td id="cartProductNum"><input type="text" id=<%=2 * i%>
-							onkeyup="countSumMoney(<%=i%>);" /></td>
+						<td id="cartProductNum"><input type="text" id="buyNumId
+							<%=i%>" onkeyup="countSumMoney(<%=i%>);" /></td>
 						<!-- 总金额 -->
-						<td><span id=<%=3 * i%>></span></td>
+						<td><span id="sumMoney<%=i%>"></span></td>
 						<td><a href="#">删除</a></td>
 						</div>
 					</tr>
