@@ -53,12 +53,7 @@ public class UserActionServlet extends HttpServlet {
 				viewAllCartProduct(request, response, EPUId);
 			}
 
-			try {
-				request.getRequestDispatcher("cart.jsp").forward(request, response);
-			} catch (ServletException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 		}
 		// 如果没有登录
 		else {
@@ -77,8 +72,17 @@ public class UserActionServlet extends HttpServlet {
 
 	void viewAllCartProduct(HttpServletRequest request, HttpServletResponse response, String EPUId) {
 		List<EProduct> cartProductList = eps.getAllCartProduct(EPUId);
+		List<ECartProduct> cartProductInfo = eps.getCartProductInfo(EPUId);
 		System.out.println("当前用户购物车商品数量为" + cartProductList.size());
+		System.out.println("1111111111111111111"+cartProductInfo.size());
+		request.setAttribute("cartProductInfo", cartProductInfo);
 		request.setAttribute("cartProductList", cartProductList);
+		try {
+			request.getRequestDispatcher("cart.jsp").forward(request, response);
+		} catch (ServletException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
