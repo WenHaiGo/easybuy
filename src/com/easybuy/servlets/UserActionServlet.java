@@ -41,25 +41,18 @@ public class UserActionServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=utf-8");
-		String param = request.getParameter("param");
-		if (param != null && param.equals("cart")) {
-			viewAllCartProduct(request, response);
-		}
-
-	}
-
-	// 得到购物车所有的商品
-
-	void viewAllCartProduct(HttpServletRequest request, HttpServletResponse response) {
-		// 先得到当前用户id
+		// 先判断是否登录。
 		HttpSession session = request.getSession();
 		String EPUId = (String) session.getAttribute("userName");
 		System.out.println("当前用户是当前用户是当前用户是当前用户是" + EPUId);
 		// clean code 里面说尽量不要做这种判断
 		if (EPUId != null) {
-			List<EProduct> cartProductList = eps.getAllCartProduct(EPUId);
-			System.out.println("当前用户购物车商品数量为" + cartProductList.size());
-			request.setAttribute("cartProductList", cartProductList);
+			// 登录了之后再次判断具体哪一种请求
+			String param = request.getParameter("param");
+			if (param != null && param.equals("cart")) {
+				viewAllCartProduct(request, response, EPUId);
+			}
+
 			try {
 				request.getRequestDispatcher("cart.jsp").forward(request, response);
 			} catch (ServletException | IOException e) {
@@ -67,10 +60,9 @@ public class UserActionServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		// 未登录点击购物车
+		// 如果没有登录
 		else {
 			try {
-				// response.sendRedirect("login.jsp");
 				request.setAttribute("fromCart", "已经登录了");
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 			} catch (IOException | ServletException e) {
@@ -78,6 +70,15 @@ public class UserActionServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+
+	}
+
+	// 得到购物车所有的商品
+
+	void viewAllCartProduct(HttpServletRequest request, HttpServletResponse response, String EPUId) {
+		List<EProduct> cartProductList = eps.getAllCartProduct(EPUId);
+		System.out.println("当前用户购物车商品数量为" + cartProductList.size());
+		request.setAttribute("cartProductList", cartProductList);
 	}
 
 	/**
