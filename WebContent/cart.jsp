@@ -15,10 +15,15 @@ font {
 </style>
 </head>
 <script>
+//商品单价i 商品数量2i  商品总金额：3i
 	function countSumMoney(i) {
-		var buyNum = $("#buyNum").val();
-		console.log(buyNum);
-		$('#'+i).html(buyNum*2);
+		var buyNumId = 2*i;
+		var sumMoneyId = 3*i;
+		var price = $('#'+i).html();
+		var buyNum = $('#'+buyNumId).val();
+		$('#'+sumMoneyId).html(price);
+		
+		
 
 	}
 </script>
@@ -52,13 +57,14 @@ font {
 									<font><%=cartProductList.get(i).getEPName() + "-->"%> <%=cartProductList.get(i).getEPDesc()%></font>
 								</div>
 						</a></td>
-						<td class="cartPrice"><%=cartProductList.get(i).getEPPrice()%>
+						<!-- 商品单价 -->
+						<td class="cartPrice" id=<%=i%>><%=cartProductList.get(i).getEPPrice()%>
 						</td>
 						<!--商品数量   通过ajax获取，可以支持动态改变 -->
-						<td id="cartProductNum"><input type="text" id="buyNum"
-							onkeyup="countSumMoney(<%=i %>);" /></td>
+						<td id="cartProductNum"><input type="text" id=<%=2 * i%>
+							onkeyup="countSumMoney(<%=i%>);" /></td>
 						<!-- 总金额 -->
-						<td><span id=<%=i %>></span></td>
+						<td><span id=<%=3 * i%>></span></td>
 						<td><a href="#">删除</a></td>
 						</div>
 					</tr>
