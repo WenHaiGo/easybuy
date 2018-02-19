@@ -1,8 +1,10 @@
 package com.easybuy.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,11 +51,15 @@ public class UserActionServlet extends HttpServlet {
 		if (EPUId != null) {
 			// 登录了之后再次判断具体哪一种请求
 			String param = request.getParameter("param");
+			System.out.println("进入铲"+param);
 			if (param != null && param.equals("cart")) {
 				viewAllCartProduct(request, response, EPUId);
 			}
 
-			
+			if (param != null && param.equals("cartDele")) {
+				System.out.println("进入铲树是对方好的随访好了大神");
+				deleCartProductByPid(request, response);
+			}
 		}
 		// 如果没有登录
 		else {
@@ -68,13 +74,42 @@ public class UserActionServlet extends HttpServlet {
 
 	}
 
+	void deleCartProductByPid(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println(request.getParameter("EPId")+"wohainiashdsiufhfhfhfhfhfhfhfhfhfhfhfhfhfhfhfh");
+		int EPId = Integer.parseInt(request.getParameter("EPId"));
+		System.out.println("删除的商品是"+EPId);
+		boolean isDelete = eps.deleCartProductByPid(EPId);
+		if (isDelete) {
+			try {
+
+				// 感觉删除商品应该使用ajax
+				response.sendRedirect("UserActionServlet?param=cart");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		else {
+			PrintWriter out;
+			try {
+				out = response.getWriter();
+				out.println("删除失败");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+	}
 	// 得到购物车所有的商品
 
 	void viewAllCartProduct(HttpServletRequest request, HttpServletResponse response, String EPUId) {
 		List<EProduct> cartProductList = eps.getAllCartProduct(EPUId);
 		List<ECartProduct> cartProductInfo = eps.getCartProductInfo(EPUId);
 		System.out.println("当前用户购物车商品数量为" + cartProductList.size());
-		System.out.println("1111111111111111111"+cartProductInfo.size());
+		System.out.println("1111111111111111111" + cartProductInfo.size());
 		request.setAttribute("cartProductInfo", cartProductInfo);
 		request.setAttribute("cartProductList", cartProductList);
 		try {

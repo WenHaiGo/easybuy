@@ -1,7 +1,7 @@
 body {
 	font: 12px/22px Verdana, Geneva, sans-serif;
 	background: #fff;
-	color: #0e3313;
+	color: #008040;
 }
 
 body, p, ul, ol, li, dl, dt, dd, input, h1, h2, h3, h4, form, hr {
@@ -10,7 +10,7 @@ body, p, ul, ol, li, dl, dt, dd, input, h1, h2, h3, h4, form, hr {
 }
 
 img {
-	border: 0;
+	border: 0 solid red;
 }
 
 table {
@@ -417,9 +417,9 @@ a:hover, a:active {
 
 #register form table td span.ok {
 	display: inline-block;
-	font-size:14px;	
+	font-size: 14px;
 	color: #0d19f1;
-	background:none;
+	background: none;
 }
 
 #register form table .current {
@@ -522,7 +522,10 @@ a:hover, a:active {
 	float: left;
 	width: 520px;
 }
-
+ .cart-product{
+	float: left;
+	width: 950px;
+}
 #main .main .side {
 	float: right;
 	width: 235px;
@@ -610,6 +613,11 @@ ul.product li dl dd.title a {
 }
 
 ul.product li dl dd.price {
+	color: #c30;
+	font-weight: bold;
+}
+
+.cartPrice {
 	color: #c30;
 	font-weight: bold;
 }
@@ -1028,4 +1036,21 @@ ul.product li dl dd.price {
 	float: right;
 	padding: 0 5px;
 	font-style: normal;
+}
+
+
+/*处理购物车*/
+
+.cart-product td,th {
+	width: 300px;
+	text-align: left;
+}
+
+.cart-p-name {
+	float: left;
+	width: 50%;
+	padding: 0px;
+	border: 0px;
+	margin: 0px;
+	text-overflow: ellipsis;
 }

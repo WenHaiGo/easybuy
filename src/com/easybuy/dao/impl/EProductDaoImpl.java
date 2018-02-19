@@ -1,5 +1,6 @@
 package com.easybuy.dao.impl;
 
+import java.security.interfaces.RSAKey;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,13 +21,11 @@ public class EProductDaoImpl implements EProductDao {
 	Connection conn = DBUtil.getConn();
 	PreparedStatement pstm = null;
 
-	String sql = null;
-
 	@Override
 	public List<EProduct> getSpecialSaleProduct(int isSpecialSale) {
 		// TODO Auto-generated method stub
 		ResultSet rs = null;
-		sql = "select * from e_product where is_special_price = ?";
+		String sql = "select * from e_product where is_special_price = ?";
 		List<EProduct> list = null;
 		try {
 
@@ -67,7 +66,7 @@ public class EProductDaoImpl implements EProductDao {
 	@Override
 	public EProduct getDetailProduct(int EPId) {
 		ResultSet rs = null;
-		sql = "select * from e_product where ep_id = ?";
+		String sql = "select * from e_product where ep_id = ?";
 		EProduct ep = null;
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -121,7 +120,7 @@ public class EProductDaoImpl implements EProductDao {
 	public List<EPCateg> getCateg() {
 		// TODO Auto-generated method stub
 		ResultSet rs = null;
-		sql = "select * from e_category";
+		String sql = "select * from e_category";
 
 		List<EPCateg> list = new LinkedList<>();
 		try {
@@ -159,7 +158,7 @@ public class EProductDaoImpl implements EProductDao {
 		ResultSet rs = null;
 		// TODO Auto-generated method stub
 		// 定义热卖的多少是否支持改变还是写死？
-		sql = "select * from e_product where ep_sale_number >?";
+		String sql = "select * from e_product where ep_sale_number >?";
 		List<EProduct> list = new LinkedList<>();
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -191,7 +190,7 @@ public class EProductDaoImpl implements EProductDao {
 	public List<EProduct> getCategProduct(int EPCId) {
 		ResultSet rs = null;
 		// TODO Auto-generated method stub
-		sql = "select * from e_product where epc_child_id =?";
+		String sql = "select * from e_product where epc_child_id =?";
 		List<EProduct> list = new LinkedList<>();
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -221,7 +220,7 @@ public class EProductDaoImpl implements EProductDao {
 	public List<EProduct> getAllCartProduct(String EPUId) {
 		ResultSet rs = null;
 		// TODO Auto-generated method stub
-		sql = "select * from e_cart where user_id = ?";
+		String sql = "select * from e_cart where user_id = ?";
 		// SELECT * from e_product where ep_id = (select product_id from e_cart where
 		// user_id = '123')
 		List<EProduct> list = new LinkedList<>();
@@ -274,6 +273,54 @@ public class EProductDaoImpl implements EProductDao {
 			e.printStackTrace();
 		}
 		return ep;
+	}
+
+	@Override
+	public List<ECartProduct> getCartProductInfo(String EPUId) {
+		// TODO Auto-generated method stub
+		String sql = "select * from e_cart where user_id = ?";
+		List<ECartProduct> list = new LinkedList<>();
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, EPUId);
+			ResultSet rs = pstm.executeQuery();
+
+			while (rs.next()) {
+				ECartProduct ecp = new ECartProduct();
+				ecp.setPNum(rs.getInt("product_num"));
+				ecp.setEUId(rs.getString("user_id"));
+				ecp.setCreateTime(rs.getDate("create_time"));
+				ecp.setPId(rs.getInt(rs.getInt("product_id")));
+				ecp.setC_id(rs.getInt("c_id"));
+
+				list.add(ecp);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
+	@Override
+	public Boolean deleCartProductByPid(int EPId) {
+		// TODO Auto-generated method stub
+		String sql = "delete from e_cart where product_id =?";
+		boolean isDelete = false;
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, EPId);
+			int rs = pstm.executeUpdate();
+			while (rs>0) {
+				isDelete = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return isDelete;
 	}
 
 }

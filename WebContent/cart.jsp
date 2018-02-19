@@ -9,47 +9,16 @@
 <link type="text/css" rel="stylesheet" href="css/style.css" />
 <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
 <style type="text/css">
-font {
-	font-size: 1px;
-}
 </style>
 </head>
 <script>
-//商品单价i 商品数量2i  商品总金额：3i
 	function countSumMoney(i) {
-	
 		var price = $('#price'+i).html();
 		var buyNum = $('#buyNum'+i).val();
-		
-		
-		
 		$('#sumMoney'+i).html(price*buyNum);
-		
-
-	}
-	
-	//就是做了读取购物车商品数量的作用
-	function cartInfo(EPCId)
-	{
-		
-		$.ajax({
-			url : 'ProductServlet',
-			type : 'post',
-			data : {
-				param : 'cart',
-				EPCId: EPCId
-			},
-			dataType : 'json',
-			success : function(data) {
-				//就是做了读取购物车商品数量的作用
-				$('#buyNum'+i).html(data.buyNum);
-			}
-
-		})
-		
 	}
 </script>
-<body >
+<body>
 	<%@ include file="header.jsp"%>
 	<div id="main" class="wrap">
 		<div class="cart-product">
@@ -84,10 +53,11 @@ font {
 						</td>
 						<!--商品数量   通过ajax获取，可以支持动态改变 -->
 						<td id="cartProductNum"><input type="text" id="buyNum<%=i%>"
-							onkeyup="countSumMoney(<%=i%>);" value=<%=cartProductInfo.get(i).getPNum() %> /></td>
+							onkeyup="countSumMoney(<%=i%>);" onabort="countSumMoney(<%=i%>);"
+							value=<%=cartProductInfo.get(i).getPNum()%> /></td>
 						<!-- 总金额 -->
-						<td><span id="sumMoney<%=i%>"></span></td>
-						<td><a href="#">删除</a></td>
+						<td class="cartPrice"><span id="sumMoney<%=i%>"><%=cartProductInfo.get(i).getPNum() * cartProductList.get(i).getEPPrice()%></span></td>
+						<td><a href="UserActionServlet?param=cartDele&EPId=<%=cartProductList.get(i).getEPId() %>">删除</a></td>
 						</div>
 					</tr>
 					<hr>
