@@ -32,13 +32,16 @@
 					<th>操作</th>
 				</tr>
 			</table>
+			<input type="checkbox" value> <span>全选</span>
 			<%
 				List<EProduct> cartProductList = (List) request.getAttribute("cartProductList");
 				List<ECartProduct> cartProductInfo = (List) request.getAttribute("cartProductInfo");
+				
 				for (int i = 0; i < cartProductList.size(); i++) {
 			%>
 			<div style="background-color: whitesmoke;">
 				<table>
+				<input type="checkbox" value>
 					<tr>
 						<td><a href="#" target="_blank">
 								<div class="cart-p-name">
