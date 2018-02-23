@@ -23,14 +23,32 @@
 	    $("input[type=checkbox][name!=allCheck]").click(function () {
 	        //如果其他都选中了 全选也要选中
 	        if ($("input[type=checkbox][name!=allCheck]:checked").length == $("input[type=checkbox][name!=allCheck]").length) {
-	           alert($("input[type=checkbox][name!=allCheck]:checked").length)
 	        	$("input[type=checkbox][name=allCheck]").prop("checked", true);
 	        }
 	        //如果检测到其他部分选中则取消全选
 	        else {
-	        	 alert($("input[type=checkbox][name!=allCheck]:checked").length+"维权选中")
 	            $("input[type=checkbox][name=allCheck]").prop("checked", false);
 	        }
+	        //将计算结果放到尾部：
+	        
+	          var num = 0;
+	        	$("input[type=checkbox][class=check]:checked").each(function(){
+	        		//num = num + parseInt($(this).siblings()[1].value);
+	        		//找到table
+	        		var broTable = $(this).siblings()[1];
+	        		//找到tbody
+	        		var childTbody = $(broTable).children()[0];
+	        		//找到tbody下的tr
+	        		var childTr = $(childTbody).children()[0];
+	        		//for(var i = 0; i<$(childTr).children().length;i++)
+	        		//找到对应的td
+	        		var childTd = $(childTr).children()[2];
+	        			console.log($(childTd).children()[0].value);
+	        	})
+	        	
+	        	
+	        
+	        
 	    })
 	    //点击全选按钮执行的操作
 	    $("input[type=checkbox][name=allCheck]").click(function () {
@@ -73,9 +91,9 @@
 			%>
 			<div style="background-color: whitesmoke;">
 				<table>
-				<hr>
+					<hr>
 					<input type="checkbox" class="check">
-					
+
 					<tr>
 						<td><a href="#" target="_blank">
 								<div class="cart-p-name">
@@ -98,19 +116,19 @@
 							href="UserActionServlet?param=cartDele&EPId=<%=cartProductList.get(i).getEPId()%>">删除</a></td>
 						</div>
 					</tr>
-					
+
 				</table>
 				<%
 					}
 				%>
 			</div>
-			
+
 		</div>
 	</div>
-<!-- 不知道为什么如果只有换行符号的话就会沿用上一个div的颜色，只好弄一个分割作用的div -->
-<div style="background-color: white;">
-<br><br><br><br><br><br><br>
-</div>
+	<!-- 不知道为什么如果只有换行符号的话就会沿用上一个div的颜色，只好弄一个分割作用的div -->
+	<div style="background-color: white;">
+		<br> <br> <br> <br> <br> <br> <br>
+	</div>
 	<!-- 底部结算代码 -->
 
 	<div class="bar-wrapper">
