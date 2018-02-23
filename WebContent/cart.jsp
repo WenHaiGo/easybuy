@@ -29,8 +29,7 @@
 	        else {
 	            $("input[type=checkbox][name=allCheck]").prop("checked", false);
 	        }
-	        //将计算结果放到尾部：
-	        
+	        //将勾选总件数放到尾部：
 	          var num = 0;
 	        	$("input[type=checkbox][class=check]:checked").each(function(){
 	        		//num = num + parseInt($(this).siblings()[1].value);
@@ -43,12 +42,13 @@
 	        		//for(var i = 0; i<$(childTr).children().length;i++)
 	        		//找到对应的td
 	        		var childTd = $(childTr).children()[2];
-	        			console.log($(childTd).children()[0].value);
+	        		
+	        		num = num + parseInt($(childTd).children()[0].value)
 	        	})
+	        	$(".piece_num").html(num);
 	        	
 	        	
-	        
-	        
+	        	
 	    })
 	    //点击全选按钮执行的操作
 	    $("input[type=checkbox][name=allCheck]").click(function () {
