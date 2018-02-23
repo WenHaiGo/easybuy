@@ -22,12 +22,13 @@
 	   //点击非全选按钮执行的操作
 	    $("input[type=checkbox][name!=allCheck]").click(function () {
 	        //如果其他都选中了 全选也要选中
-
-	        if ($("input[type=checkbox][name!=allCheck]:checked").length == $("input[type=checkbox][name!=all]").length) {
-	            $("input[type=checkbox][name=allCheck]").prop("checked", true);
+	        if ($("input[type=checkbox][name!=allCheck]:checked").length == $("input[type=checkbox][name!=allCheck]").length) {
+	           alert($("input[type=checkbox][name!=allCheck]:checked").length)
+	        	$("input[type=checkbox][name=allCheck]").prop("checked", true);
 	        }
 	        //如果检测到其他部分选中则取消全选
 	        else {
+	        	 alert($("input[type=checkbox][name!=allCheck]:checked").length+"维权选中")
 	            $("input[type=checkbox][name=allCheck]").prop("checked", false);
 	        }
 	    })
