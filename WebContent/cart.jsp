@@ -15,32 +15,23 @@
 		var buyNum = $('#buyNum'+i).val();
 		$('#sumMoney'+i).html(price*buyNum);
 	}
+	
+	
+	
    $(function(){
 	   //点击非全选按钮执行的操作
 	    $("input[type=checkbox][name!=allCheck]").click(function () {
 	        //如果其他都选中了 全选也要选中
+
 	        if ($("input[type=checkbox][name!=allCheck]:checked").length == $("input[type=checkbox][name!=all]").length) {
 	            $("input[type=checkbox][name=allCheck]").prop("checked", true);
-	            //全部选中则将页面计算结果输出到尾部结算模块'￥'
-	            
 	        }
 	        //如果检测到其他部分选中则取消全选
 	        else {
 	            $("input[type=checkbox][name=allCheck]").prop("checked", false);
 	        }
-	        
-	        
-	        var totalNum = 0;
-            $(".product-block").each(function(){
-            	if($(this).prev().prop("checked")==true){
-            		alert(123)
-            			
-            	}
-            	
-            })
-           // alert(totalNum)
 	    })
-	    //点击全选按钮执行的操作   为了俩个全选按钮都起作用，使用了name属性
+	    //点击全选按钮执行的操作
 	    $("input[type=checkbox][name=allCheck]").click(function () {
 	        if ($(this).prop("checked") == true) {
 	            $("input[type=checkbox]").each(function () {
@@ -81,9 +72,10 @@
 			%>
 			<div style="background-color: whitesmoke;">
 				<table>
-					<hr>
+				<hr>
 					<input type="checkbox" class="check">
-					<tr class=product-block>
+					
+					<tr>
 						<td><a href="#" target="_blank">
 								<div class="cart-p-name">
 									<img src=<%=cartProductList.get(i).getEPFile()%> />
@@ -93,32 +85,31 @@
 								</div>
 						</a></td>
 						<!-- 商品单价 -->
-						<td class="cartPrice" class="product-price" id="price<%=i%>"><%=cartProductList.get(i).getEPPrice()%>
+						<td class="cartPrice" id="price<%=i%>"><%=cartProductList.get(i).getEPPrice()%>
 						</td>
 						<!--商品数量   通过ajax获取，可以支持动态改变 -->
-						<td id="cartProductNum"><input type="text"
-							class="product-num" id="buyNum<%=i%>"
+						<td id="cartProductNum"><input type="text" id="buyNum<%=i%>"
 							onkeyup="countSumMoney(<%=i%>);" onabort="countSumMoney(<%=i%>);"
 							value=<%=cartProductInfo.get(i).getPNum()%> /></td>
 						<!-- 总金额 -->
 						<td class="cartPrice"><span id="sumMoney<%=i%>"><%=cartProductInfo.get(i).getPNum() * cartProductList.get(i).getEPPrice()%></span></td>
 						<td><a
 							href="UserActionServlet?param=cartDele&EPId=<%=cartProductList.get(i).getEPId()%>">删除</a></td>
+						</div>
+					</tr>
+					
+				</table>
+				<%
+					}
+				%>
 			</div>
-			</tr>
-
-			</table>
-			<%
-				}
-			%>
+			
 		</div>
-
 	</div>
-	</div>
-	<!-- 不知道为什么如果只有换行符号的话就会沿用上一个div的颜色，只好弄一个分割作用的div -->
-	<div style="background-color: white;">
-		<br> <br> <br> <br> <br> <br> <br>
-	</div>
+<!-- 不知道为什么如果只有换行符号的话就会沿用上一个div的颜色，只好弄一个分割作用的div -->
+<div style="background-color: white;">
+<br><br><br><br><br><br><br>
+</div>
 	<!-- 底部结算代码 -->
 
 	<div class="bar-wrapper">
@@ -127,10 +118,10 @@
 		<div class="bar-right">
 
 			<div class="piece">
-				已选商品<strong class="piece_num" id="total-num">0</strong>件
+				已选商品<strong class="piece_num">0</strong>件
 			</div>
 			<div class="totalMoney">
-				共计: <strong class="total_text" id="total-money">0.00</strong>
+				共计: <strong class="total_text">0.00</strong>
 			</div>
 			<div class="calBtn">
 				<a href="javascript:;">结算</a>
