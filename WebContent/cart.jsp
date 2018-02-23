@@ -30,7 +30,8 @@
 	            $("input[type=checkbox][name=allCheck]").prop("checked", false);
 	        }
 	        //将勾选总件数放到尾部：
-	          var num = 0;
+	         	 var totalNum = 0;
+	       		 var totalPrice = 0;
 	        	$("input[type=checkbox][class=check]:checked").each(function(){
 	        		//num = num + parseInt($(this).siblings()[1].value);
 	        		//找到table
@@ -40,12 +41,20 @@
 	        		//找到tbody下的tr
 	        		var childTr = $(childTbody).children()[0];
 	        		//for(var i = 0; i<$(childTr).children().length;i++)
-	        		//找到对应的td
-	        		var childTd = $(childTr).children()[2];
-	        		
-	        		num = num + parseInt($(childTd).children()[0].value)
+	        		//找到数量对应的td
+	        		var childTdNum = $(childTr).children()[2];
+	        		//找到总定价对应的td
+	        		var childTdPrice = $(childTr).children()[3];
+	        		//console.log($(childTdPrice).children()[0].innerHTML)
+	        		 totalNum = totalNum + parseInt($(childTdNum).children()[0].value)
+	        		console.log(totalNum)
+	        		 totalPrice = totalPrice +  parseFloat($(childTdPrice).children()[0].innerHTML)
 	        	})
-	        	$(".piece_num").html(num);
+	        	
+	        	alert(totalNum);
+	        	$(".piece_num").html(totalNum);
+	        	$(".total_text").html(totalPrice);
+	        	//将金额数放到尾部
 	        	
 	        	
 	        	
