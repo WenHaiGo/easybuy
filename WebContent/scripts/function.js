@@ -1,13 +1,10 @@
 $(function() {
 
-	// 判断注册信息
-
-	// 加载头部文件
-
-	// 加载顶部常用菜单栏
+	// 加载顶部常用菜单栏 只是服务于header.jsp
 	document.getElementById("childNav").innerHTML = '<div class="wrap">'
 			+ '<ul class="clearfix" id="topNav"> </ul></div>'
 })
+//当ajax菜鸟哥后台读入数据时，封装的方法显示商品信息
 function productViewAppend(whichTag, data) {
 	for (var i = 0; i < data.length; i++) {
 		var productViewCons = '<li>'
@@ -38,7 +35,6 @@ $(function() {
 		dataType : 'json',
 		success : function(data) {
 			productViewAppend("#special_price", data)
-
 		}
 
 	})
