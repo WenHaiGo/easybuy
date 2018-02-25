@@ -1,6 +1,7 @@
 <%@page import="com.easybuy.model.EProduct"%>
-<%@ page language="java" import="java.util.*"
-	contentType="text/html;charset=UTF-8"%>
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -10,13 +11,13 @@
 <script type="text/javascript" src="scripts/function.js"></script>
 </head>
 <body>
-	<div id="header" class="wrap"></div>
-	<div id="position" class="wrap">
-		您现在的位置：<a href="index.html">易买网</a> &gt; <a href="product-list.html">图书音像</a>
-		&gt; 图书
-	</div>
+	<!--我认为必要的代码还是要有的  这样会让人知道页面的基本结构是什么  -->
+	<!--加载头部页面-->
+	<%@ include file="header.jsp"%>
+	<div id="childNav"></div>
 	<div id="main" class="wrap">
 		<div class="lefter">
+			<!--加载左侧分类页面-->
 			<div class="box">
 				<h2>商品分类</h2>
 				<dl id="leftNav"></dl>
