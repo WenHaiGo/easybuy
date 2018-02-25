@@ -51,14 +51,30 @@ public class UserActionServlet extends HttpServlet {
 		if (EPUId != null) {
 			// 登录了之后再次判断具体哪一种请求
 			String param = request.getParameter("param");
-			System.out.println("进入铲"+param);
 			if (param != null && param.equals("cart")) {
 				viewAllCartProduct(request, response, EPUId);
 			}
 
 			if (param != null && param.equals("cartDele")) {
-				System.out.println("进入铲树是对方好的随访好了大神");
 				deleCartProductByPid(request, response);
+			}
+			// 添加到购物车
+			if (param != null && param.equals("cartAdd")) {
+				// 添加的时候应该首先询问是否有该商品，若有则在数量上增加一 如果没有就新建一个商品
+				int EPId = Integer.parseInt(request.getParameter("EPId"));
+				System.out.println("shangpibainhao shi "+EPId);
+				boolean isSave = eps.cartSave(EPUId, EPId, 1);
+				// 这里不会做弹出窗口，直接输出了
+				if (isSave) {
+					PrintWriter pw = response.getWriter();
+					pw.write("添加成功");
+				}
+
+				else {
+					PrintWriter pw = response.getWriter();
+					pw.write("添加失败");
+				}
+
 			}
 		}
 		// 如果没有登录
@@ -75,9 +91,9 @@ public class UserActionServlet extends HttpServlet {
 	}
 
 	void deleCartProductByPid(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println(request.getParameter("EPId")+"wohainiashdsiufhfhfhfhfhfhfhfhfhfhfhfhfhfhfhfh");
+		System.out.println(request.getParameter("EPId") + "wohainiashdsiufhfhfhfhfhfhfhfhfhfhfhfhfhfhfhfh");
 		int EPId = Integer.parseInt(request.getParameter("EPId"));
-		System.out.println("删除的商品是"+EPId);
+		System.out.println("删除的商品是" + EPId);
 		boolean isDelete = eps.deleCartProductByPid(EPId);
 		if (isDelete) {
 			try {
@@ -108,8 +124,6 @@ public class UserActionServlet extends HttpServlet {
 	void viewAllCartProduct(HttpServletRequest request, HttpServletResponse response, String EPUId) {
 		List<EProduct> cartProductList = eps.getAllCartProduct(EPUId);
 		List<ECartProduct> cartProductInfo = eps.getCartProductInfo(EPUId);
-		System.out.println("当前用户购物车商品数量为" + cartProductList.size());
-		System.out.println("1111111111111111111" + cartProductInfo.size());
 		request.setAttribute("cartProductInfo", cartProductInfo);
 		request.setAttribute("cartProductList", cartProductList);
 		try {

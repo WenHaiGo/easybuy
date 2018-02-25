@@ -60,10 +60,13 @@
 					</p>
 					<p>
 						库 存：<%=e.getEPStock()%></p>
-
 					<div class="button">
-						<input type="button" name="button" value="" onclick="goBuy(1)" /><a
-							href="UserActionServlet?param=cartAdd&EPCId=<%=e.getEPCId()%>">放入购物车</a>
+
+						<a
+							href="UserActionServlet?param=cartAdd&EPId=<%=e.getEPId()%>&productNum=1"
+							<!-- 默认是1-->>放入购物车 <input type="button" name="button" value=""
+							onclick="goBuy(1)" />
+						</a>
 					</div>
 				</div>
 				<div class="clear"></div>
