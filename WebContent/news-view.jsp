@@ -1,57 +1,20 @@
 <%@page import="com.easybuy.model.ENews"%>
 <%@ page language="java" import="java.util.*"
-	contentType="text/html;charset=UTF-8"%>
+	contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<!DOCTYPE html>
 </html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>易买网 - 首页</title>
 <link type="text/css" rel="stylesheet" href="css/style.css" />
 <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="scripts/function.js"></script>
 </head>
 <body>
-	<div id="header" class="wrap">
-		<div id="logo">
-			<a href="http://localhost:8080/yimai/index.html"><img src="images/logo.gif" /></a>
-		</div>
-		<div class="help">
-			<a href="#" class="shopping">购物车</a><a href="login.html">登录</a><a
-				href="register.html">注册</a><a href="guestbook.html">留言</a>
-		</div>
-		<div class="navbar">
-			<ul class="clearfix">
-				<li class="current"><a href="#">首页</a></li>
-				<li><a href="#">图书</a></li>
-				<li><a href="#">百货</a></li>
-				<li><a href="#">品牌</a></li>
-				<li><a href="#">促销</a></li>
-			</ul>
-		</div>
-	</div>
-	<div id="childNav">
-		<div class="wrap">
-			<ul class="clearfix">
-				<li class="first"><a href="#">音乐</a></li>
-				<li><a href="#">影视</a></li>
-				<li><a href="#">少儿</a></li>
-				<li><a href="#">动漫</a></li>
-				<li><a href="#">小说</a></li>
-				<li><a href="#">外语</a></li>
-				<li><a href="#">数码相机</a></li>
-				<li><a href="#">笔记本</a></li>
-				<li><a href="#">羽绒服</a></li>
-				<li><a href="#">秋冬靴</a></li>
-				<li><a href="#">运动鞋</a></li>
-				<li><a href="#">美容护肤</a></li>
-				<li><a href="#">家纺用品</a></li>
-				<li><a href="#">婴幼奶粉</a></li>
-				<li><a href="#">饰品</a></li>
-				<li class="last"><a href="#">Investor Relations</a></li>
-			</ul>
-		</div>
-	</div>
+	<%@ include file="header.jsp"%>
+	<div id="childNav"></div>
 	<div id="position" class="wrap">
-		您现在的位置：<a href="index.jsp">易买网</a> &gt; 阅读新闻
+		您现在的位置：<a href="index.html">易买网</a> &gt; 阅读新闻
 	</div>
 	<div id="main" class="wrap">
 		<div class="left-side">
@@ -69,12 +32,12 @@
 			</div>
 			<div class="spacer"></div>
 			<div class="news-list">
-					<h4>新闻动态</h4>
-					<ul id="showNews">
-						<!--全部使用jquery动态生成ajax的应用  -->
+				<h4>新闻动态</h4>
+				<ul id="showNews">
+					<!--全部使用jquery动态生成ajax的应用  -->
 
-					</ul>
-				</div>
+				</ul>
+			</div>
 		</div>
 		<div id="news" class="right-main">
 			<h1>铁三角 Audio-Technica ATH-EQ300M-SV 银色 挂耳式耳机</h1>
