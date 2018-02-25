@@ -76,6 +76,16 @@
  	
  	$(".piece_num").html(totalNum);
  	$(".total_text").html(totalPrice);
+ 	 var calBtn = $('.calBtn a');
+ 	if(totalPrice!=0 && totalNum!=0){
+        if(!calBtn.hasClass('btn_sty')){
+            calBtn.addClass('btn_sty');
+        }
+    }else{
+        if(calBtn.hasClass('btn_sty')){
+            calBtn.removeClass('btn_sty');
+        }
+    }
    }
    
    
