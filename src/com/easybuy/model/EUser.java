@@ -13,8 +13,18 @@ public class EUser {
 	String EUIdentyCode;
 	String EUEmail;
 	String EUMoible;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	String EUAddress;
 	int EUStatus;
+	int id;
+	
 
 	public String getEUId() {
 		return EUId;

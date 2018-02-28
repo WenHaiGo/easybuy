@@ -1,6 +1,7 @@
 package com.easybuy.service.impl;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.easybuy.dao.impl.EUDaoImpl;
 import com.easybuy.dbutils.DBUtil;
@@ -28,6 +29,12 @@ public class EUServiceImpl implements EUService {
 	public Boolean checkEUId(String EUId, String EUPwd) {
 		// TODO Auto-generated method stub
 		return new EUDaoImpl().checkEUId(EUId, EUPwd);
+	}
+
+	@Override
+	public List<EUser> showAllUser() {
+		// TODO Auto-generated method stub
+		return new EUDaoImpl().showAllUser();
 	}
 
 }

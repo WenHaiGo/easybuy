@@ -24,6 +24,15 @@
 			</ul>
 		</div>
 	</div>
-	
+	<div id="childNav">
+		<div class="welcome wrap">
+			<!--读取当前用户  -->
+			管理员<%=(String) session.getAttribute("manageUser")%>您好，今天是<%=new Date(System.currentTimeMillis())%>，欢迎回到管理后台。
+		</div>
+	</div>
+	<div id="position" class="wrap">
+		您现在的位置：<a href="index.html">易买网</a> &gt; 管理后台
+	</div>
+
 </body>
 </html>
