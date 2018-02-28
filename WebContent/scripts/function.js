@@ -167,6 +167,7 @@ function checkLogin(obj) {
 		dataType : 'json',
 		success : function(data) {
 			if (data.isExist == false) {
+				//实现思路是把本来隐藏的显示出来
 				$("#loginSpan").show();
 			} else {
 				window.location.href = 'login-result.html';
@@ -175,6 +176,8 @@ function checkLogin(obj) {
 	})
 
 }
+
+
 function focusItem(obj) {
 	obj.parentNode.parentNode.className = "current";
 	var msgBox = obj.parentNode.getElementsByTagName("span")[0];

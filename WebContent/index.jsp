@@ -78,8 +78,10 @@
 		</div>
 		<div class="clear"></div>
 	</div>
-	<div id="footer">Copyright &copy; 2010 北大青鸟 All Rights Reserved.
-		京ICP证1000001号</div>
+	<div id="footer">
+		<a style="" href="ManageUserActionServlet">后台管理</a> Copyright
+		&copy; 2010 北大青鸟 All Rights Reserved. 京ICP证1000001号
+	</div>
 </body>
 
 </html>

@@ -56,6 +56,7 @@ public class UserServlet extends HttpServlet {
 		if (param != null && param.equals("login")) {
 			login(request, response);
 		}
+		
 	}
 
 	void register(HttpServletRequest request, HttpServletResponse response) {

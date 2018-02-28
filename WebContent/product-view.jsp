@@ -65,7 +65,7 @@
 						<a
 							href="UserActionServlet?param=cartAdd&EPId=<%=e.getEPId()%>&productNum=1"
 							<!-- 默认是1-->>放入购物车 <input type="button" name="button" value=""
-							onclick="goBuy(1)" />
+							 />
 						</a>
 					</div>
 				</div>

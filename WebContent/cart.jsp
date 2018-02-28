@@ -15,10 +15,8 @@
 		var buyNum = $('#buyNum'+i).val();
 		$('#sumMoney'+i).html(price*buyNum);
 	}
-	
-	
-	
-   $(function(){
+
+	$(function(){
 	   //点击非全选按钮执行的操作
 	    $("input[type=checkbox][name!=allCheck]").click(function () {
 	        //如果其他都选中了 全选也要选中

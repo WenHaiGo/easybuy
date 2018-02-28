@@ -59,7 +59,6 @@
 				<ul class="product clearfix">
 					<% List<EProduct> categProducts = (List<EProduct>)request.getAttribute("categProduct");%>
 					<%for(int i = 0;i<categProducts.size();i++) {%>
-
 					<li>
 						<dl>
 							<dt>

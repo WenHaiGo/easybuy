@@ -16,7 +16,8 @@
 		<div class="shadow">
 			<em class="corner lb"></em> <em class="corner rt"></em>
 			<div class="box">
-				<h1><%=(request.getAttribute("fromCart")==null? "欢迎回到易买网":"需要先登录然后使用购物车")%></h1>
+				<!-- 如果检测到点击购物车进入就触发这个操作 -->
+				<h1><%=(request.getAttribute("notLogin") == null ? "欢迎回到易买网" : "请先登录")%></h1>
 				<form id="loginForm" method="post">
 					<table>
 						<tr>
