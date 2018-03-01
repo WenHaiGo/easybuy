@@ -101,7 +101,9 @@
 					<th>单价</th>
 					<th>商品数量</th>
 					<th>金额</th>
+					<th>时间</th>
 					<th>操作</th>
+					
 				</tr>
 			</table>
 			<input type="checkbox" class="check" Name="allCheck">全选
@@ -134,8 +136,10 @@
 							value=<%=cartProductInfo.get(i).getPNum()%> /></td>
 						<!-- 总金额 -->
 						<td class="cartPrice"><span id="sumMoney<%=i%>"><%=cartProductInfo.get(i).getPNum() * cartProductList.get(i).getEPPrice()%></span></td>
+						<td><%=cartProductInfo.get(i).getCreateTime() %></td>
 						<td><a
 							href="UserActionServlet?param=cartDele&EPId=<%=cartProductList.get(i).getEPId()%>">删除</a></td>
+							
 						</div>
 					</tr>
 
