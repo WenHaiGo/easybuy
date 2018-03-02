@@ -5,6 +5,7 @@ import java.security.interfaces.RSAKey;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.easybuy.model.ENews;
 import com.easybuy.model.EUser;
+import com.easybuy.service.ENewsService;
+import com.easybuy.service.impl.ENewsServiceImpl;
 import com.easybuy.service.impl.EUServiceImpl;
 
 /**
@@ -41,7 +45,7 @@ public class ManageOperateServlet extends HttpServlet {
 		System.out.println("进入一号地点");
 		// String param = request.getParameter("param");
 		String param = request.getParameter("param");
-		System.err.println("cnsahi shu "+param);
+		System.err.println("cnsahi shu " + param);
 		if (param != null && param.equals("addUser")) {
 			addUser(request, response);
 		}
@@ -53,7 +57,7 @@ public class ManageOperateServlet extends HttpServlet {
 
 		if (param != null && param.equals("updateUser")) {
 			int id = Integer.parseInt(request.getParameter("updateId"));
-			//根据id得到user然后把user转发到编辑页面
+			// 根据id得到user然后把user转发到编辑页面
 			EUServiceImpl eus = new EUServiceImpl();
 			EUser user = eus.findUserById(id);
 			request.setAttribute("user", user);
@@ -66,7 +70,53 @@ public class ManageOperateServlet extends HttpServlet {
 			delUserById(request, response, id);
 		}
 		if (param != null && param.equals("manageNews")) {
+			showAllNews(request, response);
+		}
 
+		if (param != null && param.equals("updateNews")) {
+
+			int updateId = Integer.parseInt(request.getParameter("updateNewsId"));
+			updateNewsById(request, response, updateId);
+		}
+		if (param != null && param.equals("delNews")) {
+
+			int delId = Integer.parseInt(request.getParameter("delNewsId"));
+			delNewsById(request, response, delId);
+		}
+
+	}
+
+	private void updateNewsById(HttpServletRequest request, HttpServletResponse response, int updateId) {
+
+	}
+
+	private void delNewsById(HttpServletRequest request, HttpServletResponse response, int delId) {
+		ENewsServiceImpl en = new ENewsServiceImpl();
+		boolean isDel = en.delNewsById(delId);
+		if (isDel) {
+			try {
+				response.sendRedirect("ManageOperateServlet?param=manageNews");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		else {
+			System.out.println("删除失败");
+		}
+	}
+
+	private void showAllNews(HttpServletRequest request, HttpServletResponse response) {
+		ENewsServiceImpl ens = new ENewsServiceImpl();
+		List<ENews> allNews = ens.newsTitle();
+		request.setAttribute("allNews", allNews);
+		try {
+			request.getRequestDispatcher("manageNews.jsp").forward(request, response);
+
+		} catch (ServletException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}

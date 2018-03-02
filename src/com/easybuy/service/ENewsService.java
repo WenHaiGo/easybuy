@@ -9,5 +9,7 @@ public interface ENewsService {
 	List<ENews> newsTitle();
 
 	// 根据标题来查询对应的内容
-	public ENews newsContent(String newsTitle);
+	ENews newsContent(String newsTitle);
+
+	boolean delNewsById(int id);
 }
