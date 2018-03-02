@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>全选效果</title>
+        <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(function(){
+                $('input').click(function(){
+                    if($(this).index() == 0){
+                        //判断当前全选框是否选中，如果选中则全选，否则全不选
+                        if($('input').eq(0).prop('checked')){
+                            $(this).nextAll().prop('checked',true);
+                        }else{
+                            $(this).nextAll().prop('checked',false);
+                        }
+                    }else{
+                        //判断除了全选之外的选项是否全部选中，选中则勾上全选，否则全不选
+                        if($('input:gt(0):checked').length == $('input').length-1){
+                            $('input').eq(0).prop('checked',true)
+                        }else{
+                            $('input').eq(0).prop('checked',false)
+                        }
+                    }  
+                })
+            })
+        </script>
+    </head>
+    <body>
+        <input type="checkbox" />全选
+        <input type="checkbox" />语文
+        <input type="checkbox" />数学
+        <input type="checkbox" />英语
+    </body>
+</html>

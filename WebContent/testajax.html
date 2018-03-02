@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function fn1() {
+
+		//1.创建ajax引擎对象----所有的操作都是通过引擎对象
+		var xmlhttp = new XMLHttpRequest();
+		//2.绑定监听
+		xmlhttp.onreadystatechange = function() {
+			//5接受相应的数据
+
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				var res = xmlhttp.responseText;
+				document.getElementById("span1").innerHTML=res;
+			}
+		}
+		//3.绑定地址
+		xmlhttp.open("GET", "/easybuy/ajaxServlet", true);
+
+		//4.发送请求
+		xmlhttp.send();
+	}
+	
+	function fn2() {
+
+		//1.创建ajax引擎对象----所有的操作都是通过引擎对象
+		var xmlhttp = new XMLHttpRequest();
+		//2.绑定监听
+		xmlhttp.onreadystatechange = function() {
+			//5接受相应的数据
+
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				var res = xmlhttp.responseText;
+				document.getElementById("span2").innerHTML=res;
+			}
+		}
+		//3.绑定地址
+		xmlhttp.open("GET", "/easybuy/ajaxServlet", false);
+
+		//4.发送请求
+		xmlhttp.send();
+	}
+</script>
+</head>
+<body>
+	<input type="button" value="异步访问服务器端" onclick="fn1()"><span id="span1">测试初始化</span>
+	<input type="button" value="同步访问服务器端" onclick="fn2()"><span id="span2">测试初始化</span>
+	<input type="button" value="测试" onclick="alert(12)"><span id="span1">测试初始化</span>
+</body>
+</html>
