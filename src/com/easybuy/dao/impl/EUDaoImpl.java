@@ -153,4 +153,36 @@ public class EUDaoImpl implements EUDao {
 		return list;
 	}
 
+	@Override
+	public boolean saveUserFromManage(EUser user) {
+		// TODO Auto-generated method stub
+		Connection conn = DBUtil.getConn();
+		String sql = "insert into eu_user(eu_user_id,eu_user_name,eu_password,eu_sex,eu_birthday,eu_mobile,eu_address,eu_photo)"
+				+ " values (?,?,?,?,?,?,?,?)";
+		PreparedStatement pstm = null;
+		boolean isSave = false;
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, user.getEUId());
+			pstm.setString(2, user.getEUName());
+			pstm.setString(3, user.getEUPwd());
+			pstm.setString(4, user.getEUSex());
+			pstm.setDate(5, user.getEUBirthday());
+			pstm.setString(6, user.getEUMoible());
+			pstm.setString(7, user.getEUAddress());
+			pstm.setString(8, user.getEUPhoto());
+			
+			int temp = pstm.executeUpdate();
+			
+			if (temp>0) {
+				isSave = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return isSave;
+	}
+
 }

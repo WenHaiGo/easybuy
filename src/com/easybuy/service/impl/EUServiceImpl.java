@@ -37,4 +37,12 @@ public class EUServiceImpl implements EUService {
 		return new EUDaoImpl().showAllUser();
 	}
 
+	@Override
+	public boolean saveUserFromManage(EUser user) {
+		// TODO Auto-generated method stub
+		return new EUDaoImpl().saveUserFromManage(user);
+	}
+	
+	
+
 }

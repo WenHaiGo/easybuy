@@ -13,6 +13,15 @@ public class EUser {
 	String EUIdentyCode;
 	String EUEmail;
 	String EUMoible;
+	String EUPhoto;
+	public String getEUPhoto() {
+		return EUPhoto;
+	}
+
+	public void setEUPhoto(String eUPhoto) {
+		EUPhoto = eUPhoto;
+	}
+
 	public int getId() {
 		return id;
 	}

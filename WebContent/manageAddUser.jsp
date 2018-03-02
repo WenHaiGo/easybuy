@@ -15,7 +15,7 @@
 		<div class="main">
 			<h2>新增用户</h2>
 			<div class="manage">
-				<form action="manage-result.html">
+				<form action="ManageOperateServlet?param=addUser" type="post">
 					<table class="form">
 						<tr>
 							<td class="field">用户名：</td>

@@ -17,4 +17,7 @@ public interface EUService {
 	public Boolean checkEUId(String EUId, String EUPwd);
 	//后台管理展示所有用户
 	List<EUser> showAllUser();
+	
+	boolean saveUserFromManage(EUser user);
+	
 }
