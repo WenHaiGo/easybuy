@@ -39,13 +39,108 @@ public class ManageOperateServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=utf-8");
 		System.out.println("进入一号地点");
-		//String param = request.getParameter("param");
-		String param = "addUser";
+		// String param = request.getParameter("param");
+		String param = request.getParameter("param");
+		System.err.println("cnsahi shu "+param);
 		if (param != null && param.equals("addUser")) {
-			System.out.println("erhaodidian ");
 			addUser(request, response);
 		}
+		if (param != null && param.equals("submitUpdate")) {
+			System.out.println("jinrhewuifdhgui");
+			int id = Integer.parseInt(request.getParameter("submitUpdateId"));
+			updateUserById(request, response, id);
+		}
 
+		if (param != null && param.equals("updateUser")) {
+			int id = Integer.parseInt(request.getParameter("updateId"));
+			//根据id得到user然后把user转发到编辑页面
+			EUServiceImpl eus = new EUServiceImpl();
+			EUser user = eus.findUserById(id);
+			request.setAttribute("user", user);
+			request.getRequestDispatcher("manageUpdateUser.jsp").forward(request, response);
+		}
+
+		if (param != null && param.equals("delUser")) {
+			// 获取要删除用户的id
+			int id = Integer.parseInt(request.getParameter("id"));
+			delUserById(request, response, id);
+		}
+		if (param != null && param.equals("manageNews")) {
+
+		}
+
+	}
+
+	private void updateUserById(HttpServletRequest request, HttpServletResponse response, int id) {
+		EUser user = new EUser();
+		String userName = request.getParameter("userName");
+		String name = request.getParameter("name");
+		String passWord = request.getParameter("passWord");
+		String sex = request.getParameter("sex");
+		String birthyear = request.getParameter("birthyear");
+		String birthmonth = request.getParameter("birthmonth");
+		String birthday = request.getParameter("birthday");
+		String mobile = request.getParameter("mobile");
+		String address = request.getParameter("address");
+		String photo = request.getParameter("photo");
+		user.setEUAddress(address);
+		// 处理时间
+		String birthTime = birthyear + "-" + birthmonth + "-" + birthday;
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = null;
+		try {
+			// 将util的时间转换为sql里的代码希望可以保存到数据库中
+			date = format.parse(birthTime);
+			java.sql.Date date2 = new Date(date.getTime());
+			user.setEUBirthday(date2);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		user.setEUId(userName);
+
+		user.setEUMoible(mobile);
+
+		user.setEUName(name);
+		// 上传头像应该是上传到一个图片文件夹里，然后向数据里面保存一个地址就好了
+		user.setEUPhoto(photo);
+
+		user.setEUPwd(passWord);
+
+		user.setEUSex(sex);
+		EUServiceImpl eus = new EUServiceImpl();
+		boolean isUpdate = eus.updateUserById(user, id);
+
+		if (isUpdate) {
+			try {
+				response.sendRedirect("ManageUserServlet?param=showAllUser");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		else {
+			System.out.println("修改失败");
+		}
+	}
+
+	private void delUserById(HttpServletRequest request, HttpServletResponse response, int id) {
+		EUServiceImpl eus = new EUServiceImpl();
+		boolean isDel = eus.delUserById(id);
+		if (isDel) {
+			try {
+				response.sendRedirect("ManageUserServlet?param=showAllUser");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		else {
+			System.out.println("删除失败");
+		}
 	}
 
 	private void addUser(HttpServletRequest request, HttpServletResponse response) {
@@ -63,7 +158,7 @@ public class ManageOperateServlet extends HttpServlet {
 		String photo = request.getParameter("photo");
 		user.setEUAddress(address);
 		// 处理时间
-		String birthTime = birthyear +"-"+ birthmonth +"-"+ birthday;
+		String birthTime = birthyear + "-" + birthmonth + "-" + birthday;
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date date = null;
 		try {
@@ -91,19 +186,19 @@ public class ManageOperateServlet extends HttpServlet {
 		// 将user上传到数据库
 		EUServiceImpl eus = new EUServiceImpl();
 		boolean isSave = eus.saveUserFromManage(user);
-		
-		if(isSave)
-		{
+
+		if (isSave) {
 			try {
-				System.out.println("shifpuidhsin "+isSave);
+				System.out.println("shifpuidhsin " + isSave);
 				request.getRequestDispatcher("manage-result.html").forward(request, response);
 			} catch (ServletException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			};
-			
+			}
+			;
+
 		}
-		
+
 		else {
 			System.out.println("保存失败");
 		}

@@ -42,6 +42,24 @@ public class EUServiceImpl implements EUService {
 		// TODO Auto-generated method stub
 		return new EUDaoImpl().saveUserFromManage(user);
 	}
+
+	@Override
+	public boolean updateUserById(EUser user, int id) {
+		// TODO Auto-generated method stub
+		return new EUDaoImpl().updateUserById(user, id);
+	}
+
+	@Override
+	public boolean delUserById(int id) {
+		// TODO Auto-generated method stub
+		return new EUDaoImpl().delUserById(id);
+	}
+
+	@Override
+	public EUser findUserById(int id) {
+		// TODO Auto-generated method stub
+		return new EUDaoImpl().findUserById(id);
+	}
 	
 	
 

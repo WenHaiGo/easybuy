@@ -17,7 +17,7 @@
 				<dt>商品信息</dt>
 				<dd>
 					<em><a href="productClass-add.html">新增</a></em><a
-						href="productClass.html">分类管理</a>
+						href="ManageOperateServlet?param=manageCateg">分类管理</a>
 				</dd>
 				<dd>
 					<em><a href="product-add.html">新增</a></em><a href="product.html">商品管理</a>
@@ -32,7 +32,7 @@
 				</dd>
 				<dt>新闻管理</dt>
 				<dd>
-					<em><a href="news-add.html">新增</a></em><a href="news.html">新闻管理</a>
+					<em><a href="news-add.html">新增</a></em><a href="ManageOperateServlet?param=manageNews">新闻管理</a>
 				</dd>
 			</dl>
 		</div>

@@ -171,10 +171,10 @@ public class EUDaoImpl implements EUDao {
 			pstm.setString(6, user.getEUMoible());
 			pstm.setString(7, user.getEUAddress());
 			pstm.setString(8, user.getEUPhoto());
-			
+
 			int temp = pstm.executeUpdate();
-			
-			if (temp>0) {
+
+			if (temp > 0) {
 				isSave = true;
 			}
 		} catch (SQLException e) {
@@ -183,6 +183,91 @@ public class EUDaoImpl implements EUDao {
 		}
 
 		return isSave;
+	}
+
+	@Override
+	public boolean delUserById(int id) {
+		// TODO Auto-generated method stub
+		String sql = "delete from eu_user where id = ?";
+		Connection conn = DBUtil.getConn();
+		PreparedStatement pstm = null;
+		boolean isDel = false;
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, id);
+			int a = pstm.executeUpdate();
+			if (a > 0) {
+				isDel = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return isDel;
+	}
+
+	@Override
+	public boolean updateUserById(EUser user, int id) {
+		// TODO Auto-generated method stub
+
+		String sql = "update eu_user set eu_user_id=?,eu_user_name=?,"
+				+ "eu_password=?,eu_sex=?,eu_birthday=?,eu_mobile=?,eu_address=?,eu_photo=? where id =?";
+		Connection conn = DBUtil.getConn();
+		Boolean isUpdate = false;
+		try {
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setString(1, user.getEUId());
+			pstm.setString(2, user.getEUName());
+			pstm.setString(3, user.getEUPwd());
+			pstm.setString(4, user.getEUSex());
+			pstm.setDate(5, user.getEUBirthday());
+			pstm.setString(6, user.getEUMoible());
+			pstm.setString(7, user.getEUAddress());
+			pstm.setString(8, user.getEUPhoto());
+			pstm.setInt(9, id);
+			int a = pstm.executeUpdate();
+			if (a > 0) {
+				isUpdate = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return isUpdate;
+	}
+
+	@Override
+	public EUser findUserById(int id) {
+		// TODO Auto-generated method stub
+		String sql = "select * from eu_user where id = ?";
+		Connection conn = DBUtil.getConn();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		EUser user = null;
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, id);
+			rs = pstm.executeQuery();
+
+			while (rs.next()) {
+				user = new EUser();
+				user.setEUAddress(rs.getString("eu_address"));
+				user.setEUBirthday(rs.getDate("eu_birthday"));
+				user.setEUEmail(rs.getString("eu_email"));
+				user.setEUId(rs.getString("eu_user_id"));
+				user.setEUIdentyCode(rs.getString("eu_identity_code"));
+				user.setEUMoible(rs.getString("eu_mobile"));
+				user.setEUName(rs.getString("eu_user_name"));
+				user.setEUPhoto(rs.getString("eu_photo"));
+				user.setEUSex(rs.getString("eu_sex"));
+				user.setId(rs.getInt("id"));
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return user;
 	}
 
 }

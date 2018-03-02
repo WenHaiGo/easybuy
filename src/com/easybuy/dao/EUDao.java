@@ -21,5 +21,14 @@ public interface EUDao {
 	public Boolean checkEUId(String EUId, String EUPwd);
 
 	List<EUser> showAllUser();
+
 	public boolean saveUserFromManage(EUser user);
+
+	// 删除用户
+	boolean delUserById(int id);
+
+	// 修改用户
+	boolean updateUserById(EUser user,int id);
+	//根据id得到用户
+	EUser findUserById(int id);
 }

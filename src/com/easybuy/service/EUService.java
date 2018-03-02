@@ -3,6 +3,8 @@ package com.easybuy.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.catalina.User;
+
 import com.easybuy.model.EUser;
 
 public interface EUService {
@@ -19,5 +21,11 @@ public interface EUService {
 	List<EUser> showAllUser();
 	
 	boolean saveUserFromManage(EUser user);
+	
+	public boolean updateUserById(EUser user, int id);
+	
+	public boolean delUserById(int id); 
+	
+	EUser findUserById(int id);
 	
 }

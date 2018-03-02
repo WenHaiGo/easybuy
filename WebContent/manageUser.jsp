@@ -42,8 +42,11 @@
 						<td class="w2 c"><%=allUser.get(i).getEUSex()%></td>
 						<td><%=allUser.get(i).getEUEmail()%></td>
 						<td class="w4 c"><%=allUser.get(i).getEUMoible()%></td>
-						<td class="w1 c"><a href="user-modify.html">修改</a> <a
-							href="javascript:Delete(1);">删除</a></td>
+						<td class="w1 c">
+							<a href="ManageOperateServlet?param=updateUser&updateId=<%=allUser.get(i).getId()%>">修改</a> <a
+							<a
+							href="ManageOperateServlet?param=delUser&id=<%=allUser.get(i).getId()%>">删除</a>
+						</td>
 					</tr>
 					<%
 						}
