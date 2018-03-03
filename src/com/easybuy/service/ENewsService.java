@@ -12,4 +12,7 @@ public interface ENewsService {
 	ENews newsContent(String newsTitle);
 
 	boolean delNewsById(int id);
+	
+	ENews findNewsById(int id);
+	boolean updateNewsById(ENews news,int id);
 }

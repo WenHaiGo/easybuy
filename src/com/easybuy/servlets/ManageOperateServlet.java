@@ -78,6 +78,31 @@ public class ManageOperateServlet extends HttpServlet {
 			int updateId = Integer.parseInt(request.getParameter("updateNewsId"));
 			updateNewsById(request, response, updateId);
 		}
+		if (param != null && param.equals("submitUpdateNews")) {
+
+			int updateId = Integer.parseInt(request.getParameter("submitUpdateNewsId"));
+			ENews en = new ENews();
+			en.setENContent(request.getParameter("content"));
+			en.setENId(Integer.parseInt(request.getParameter("submitUpdateNewsId")));
+			Date time = new Date(System.currentTimeMillis());
+			en.setENTime(time);
+			en.setENTitle(request.getParameter("title"));
+			ENewsService ens = new ENewsServiceImpl();
+			boolean isUpdate = ens.updateNewsById(en, updateId);
+			if (isUpdate) {
+				try {
+					response.sendRedirect("ManageOperateServlet?param=manageNews");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			else {
+				System.out.println("修改失败");
+			}
+		}
+
 		if (param != null && param.equals("delNews")) {
 
 			int delId = Integer.parseInt(request.getParameter("delNewsId"));
@@ -87,7 +112,22 @@ public class ManageOperateServlet extends HttpServlet {
 	}
 
 	private void updateNewsById(HttpServletRequest request, HttpServletResponse response, int updateId) {
+		ENewsServiceImpl ens = new ENewsServiceImpl();
+		ENews en = ens.findNewsById(updateId);
+		if (en == null)
+			System.out.println("niahoishulhfdilhdsilfhdslkjfhdlkjsdflhkjsdhlkjds");
+		else {
+			System.out.println("111111111111111111111111");
+		}
+		// System.out.println("nihao" + en.getENContent());
+		request.setAttribute("news", en);
 
+		try {
+			request.getRequestDispatcher("manageUpdateNews.jsp").forward(request, response);
+		} catch (ServletException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void delNewsById(HttpServletRequest request, HttpServletResponse response, int delId) {

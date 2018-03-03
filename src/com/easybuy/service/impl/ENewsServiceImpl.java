@@ -28,4 +28,18 @@ public class ENewsServiceImpl implements ENewsService {
 		return new ENDaoImpl().delNewsById(id);
 	}
 
+
+	@Override
+	public ENews findNewsById(int id) {
+		// TODO Auto-generated method stub
+		return new ENDaoImpl().findNewsById(id);
+	}
+
+
+	@Override
+	public boolean updateNewsById(ENews news,int id) {
+		// TODO Auto-generated method stub
+		return new ENDaoImpl().updateNewsById(news, id) ;
+	}
+
 }
