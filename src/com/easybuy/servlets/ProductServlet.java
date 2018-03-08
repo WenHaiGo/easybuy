@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.ObjectUtils.Null;
+
+import com.easybuy.dbutils.PageUtil;
 import com.easybuy.model.EPCateg;
 import com.easybuy.model.EProduct;
 import com.easybuy.service.impl.EProductServiceImpl;
@@ -82,20 +85,30 @@ public class ProductServlet extends HttpServlet {
 		}
 
 		if (param != null && param.equals("categ")) {
-			// 获取子类的id
+			System.out.println("========================");
+			// 获取子类的id		
 			String str = request.getParameter("EPCId");
 			// 如何判断一定是数字字符串？
 			int EPCId = Integer.parseInt(str);
 
-			List<EProduct> list = epService.getCategProduct(EPCId);
+			// 默认是第一页
+			int pageNo = 1;
+
+			String pageNoStr = request.getParameter("pageNo");
+			PageUtil<EProduct> pageUtil = null;
+			if (pageNoStr != null) {
+				pageNo = Integer.parseInt(pageNoStr);
+				pageUtil = epService.getCategProduct(EPCId, pageNo, 8);
+			} else {
+				pageUtil = epService.getCategProduct(EPCId, pageNo, 8);
+			}
 
 			// 因为是从一个页面跳转到另外一个页面，而且需要上一页的数据 所以不通过ajax 而是通过jsp实现
-			request.setAttribute("categProduct", list);
-
+			request.setAttribute("pageUtil", pageUtil);
+			request.setAttribute("EPCId", EPCId);
 			request.getRequestDispatcher("product-list.jsp").forward(request, response);
 		}
 
-		
 	}
 
 	/**

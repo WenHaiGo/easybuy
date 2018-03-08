@@ -21,6 +21,9 @@ import com.easybuy.model.EProduct;
 
 public class EProductDaoImpl implements EProductDao {
 
+	/**
+	 * 获取热卖商品
+	 */
 	@Override
 	public List<EProduct> getSpecialSaleProduct(int isSpecialSale) {
 		Connection conn = DBUtil.getConn();
@@ -64,6 +67,9 @@ public class EProductDaoImpl implements EProductDao {
 		return list;
 	}
 
+	/**
+	 * 获取商品详细信息
+	 */
 	@Override
 	public EProduct getDetailProduct(int EPId) {
 		Connection conn = DBUtil.getConn();
@@ -99,6 +105,13 @@ public class EProductDaoImpl implements EProductDao {
 
 	}
 
+	/**
+	 * 为了避免代码重复，完成jdbc中商品的赋值
+	 * 
+	 * @param ep
+	 * @param rs
+	 * @return
+	 */
 	EProduct productAssign(EProduct ep, ResultSet rs) {
 		try {
 			ep.setEPCChildId(rs.getInt("epc_child_id"));
@@ -119,6 +132,9 @@ public class EProductDaoImpl implements EProductDao {
 		return ep;
 	}
 
+	/**
+	 * 获取所有分类
+	 */
 	@Override
 	public List<EPCateg> getCateg() {
 		// TODO Auto-generated method stub
@@ -158,6 +174,9 @@ public class EProductDaoImpl implements EProductDao {
 		return list;
 	}
 
+	/**
+	 * 获取热卖商品
+	 */
 	@Override
 	public List<EProduct> getHotProduct(int saleNum) {
 		Connection conn = DBUtil.getConn();
@@ -193,17 +212,22 @@ public class EProductDaoImpl implements EProductDao {
 		return list;
 	}
 
+	/**
+	 * 获取某一个分类下所有的商品
+	 */
 	@Override
-	public List<EProduct> getCategProduct(int EPCId) {
+	public List<EProduct> getCategProduct(int EPCId, int pageNo, int pageSize) {
 		Connection conn = DBUtil.getConn();
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		// TODO Auto-generated method stub
-		String sql = "select * from e_product where epc_child_id =?";
+		String sql = "select * from e_product where epc_child_id =? limit ?,?";
 		List<EProduct> list = new LinkedList<>();
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, EPCId);
+			pstm.setInt(2, (pageNo - 1) * pageSize);
+			pstm.setInt(3, pageSize);
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				EProduct ep = new EProduct();
@@ -225,6 +249,9 @@ public class EProductDaoImpl implements EProductDao {
 		return list;
 	}
 
+	/**
+	 * 获取购物车所有商品
+	 */
 	@Override
 	public List<EProduct> getAllCartProduct(String EPUId) {
 		Connection conn = DBUtil.getConn();
@@ -264,6 +291,9 @@ public class EProductDaoImpl implements EProductDao {
 		return list;
 	}
 
+	/**
+	 * 通过商品ID获取商品
+	 */
 	@Override
 	public EProduct getProductById(int productId) {
 		Connection conn = DBUtil.getConn();
@@ -305,7 +335,7 @@ public class EProductDaoImpl implements EProductDao {
 				ecp.setPNum(rs.getInt("product_num"));
 				ecp.setEUId(rs.getString("user_id"));
 				ecp.setCreateTime(rs.getDate("create_time"));
-				ecp.setPId(rs.getInt(rs.getInt("product_id")));
+				ecp.setPId(rs.getInt("product_id"));
 				ecp.setC_id(rs.getInt("cart_id"));
 
 				list.add(ecp);
@@ -318,6 +348,9 @@ public class EProductDaoImpl implements EProductDao {
 		return list;
 	}
 
+	/**
+	 * 删除购物车某一个商品
+	 */
 	@Override
 	public Boolean deleCartProductByPid(int EPId) {
 		Connection conn = DBUtil.getConn();
@@ -339,6 +372,9 @@ public class EProductDaoImpl implements EProductDao {
 		return isDelete;
 	}
 
+	/**
+	 * 添加商品到购物车
+	 */
 	@Override
 	public Boolean cartSave(String EUId, int EPId, int productNum) {
 		Connection conn = DBUtil.getConn();
@@ -369,6 +405,13 @@ public class EProductDaoImpl implements EProductDao {
 	}
 
 	// 服务于cartSave
+	/**
+	 * 如果购物车没有该商品就是直接在数据库新建该商品
+	 * 
+	 * @param EUId
+	 * @param EPId
+	 * @return
+	 */
 	private Boolean cartNewProduct(String EUId, int EPId) {
 		Connection conn = DBUtil.getConn();
 		PreparedStatement pstm = null;
@@ -408,6 +451,14 @@ public class EProductDaoImpl implements EProductDao {
 	}
 
 	// 服务于cartSave
+	/**
+	 * 如果购物车已经存在这个商品就直接改变商品数量
+	 * 
+	 * @param EUId
+	 * @param EPId
+	 * @param productNum
+	 * @return
+	 */
 	private Boolean cartChangeProductNum(String EUId, int EPId, int productNum) {
 		Connection conn = DBUtil.getConn();
 		PreparedStatement pstm = null;
@@ -441,6 +492,12 @@ public class EProductDaoImpl implements EProductDao {
 	}
 
 	// 服务于cartChangeProductNum
+	/**
+	 * 在当前的商品数量上加一
+	 * 
+	 * @param EPId
+	 * @return
+	 */
 	private int getCurrentCartProductNum(int EPId) {
 		Connection conn = DBUtil.getConn();
 		PreparedStatement pstm = null;
@@ -470,6 +527,38 @@ public class EProductDaoImpl implements EProductDao {
 		}
 
 		return currentNum;
+	}
+
+	@Override
+	public int getProductNumByCategId(int EPCId) {
+		// TODO Auto-generated method stub
+		String sql = "select count(*) from e_product where epc_child_id = ?";
+		Connection conn = DBUtil.getConn();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		int totalNum = 0;
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, EPCId);
+			rs = pstm.executeQuery();
+			while (rs.next()) {
+				totalNum = rs.getInt("count(*)");
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		finally {
+			try {
+				DBUtil.DBclose(conn, pstm, rs);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return totalNum;
 	}
 
 }

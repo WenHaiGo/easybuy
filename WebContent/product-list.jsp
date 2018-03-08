@@ -91,10 +91,10 @@
 				<div class="clear"></div>
 				<div class="pager">
 					<ul class="clearfix">
-						<li><a href="<%=pageUtil.getPageNo() - 1%>">上一页</a></li>
+						<li><a href="ProductServlet?param=categ&pageNo=<%=pageUtil.getPageNo() - 1%>&EPCId=<%=request.getAttribute("EPCId")%>">上一页</a></li>
 						<li class="current"><%=pageUtil.getPageNo()%></li>
 						<li><a
-							href="ProductServlet?param=categ&pageNo=<%=pageUtil.getPageNo() + 1%>">下一页</a></li>
+							href="ProductServlet?param=categ&pageNo=<%=pageUtil.getPageNo() + 1%>&EPCId=<%=request.getAttribute("EPCId")%>">下一页</a></li>
 						<li><a href="#">总计<%=pageUtil.getTotalPage()%></a></li>
 					</ul>
 				</div>

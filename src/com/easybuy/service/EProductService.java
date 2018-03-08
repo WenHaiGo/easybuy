@@ -2,6 +2,7 @@ package com.easybuy.service;
 
 import java.util.List;
 
+import com.easybuy.dbutils.PageUtil;
 import com.easybuy.model.ECartProduct;
 import com.easybuy.model.EPCateg;
 import com.easybuy.model.EProduct;
@@ -18,7 +19,7 @@ public interface EProductService {
 
 	// 根据传入的EPCId获取某一个分类下所有的商品
 
-	List<EProduct> getCategProduct(int EPCId);
+	PageUtil<EProduct> getCategProduct(int EPCId, int pageNo, int pageSize);
 
 	List<EProduct> getAllCartProduct(String EPUId);
 

@@ -14,7 +14,7 @@ public class DBUtil {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://120.79.195.111:3306/mysql", "root", "123456");
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/mysql", "root", "123456");
 
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

@@ -16,7 +16,7 @@ public interface EProductDao {
 
 	List<EProduct> getHotProduct(int saleNum);
 
-	List<EProduct> getCategProduct(int EPCId);
+	List<EProduct> getCategProduct(int EPCId, int pageNo, int pageSize);
 
 	List<EProduct> getAllCartProduct(String EPUId);
 
@@ -34,5 +34,8 @@ public interface EProductDao {
 	 * @return 是否保存成功
 	 */
 	Boolean cartSave(String EUId, int EPId,int productNum);
+	
+	//获取某一分类下的商品数量
+	int  getProductNumByCategId(int EPCId);
 
 }
