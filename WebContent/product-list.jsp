@@ -1,6 +1,7 @@
+<%@page import="com.easybuy.dbutils.PageUtil"%>
 <%@page import="com.easybuy.model.EProduct"%>
-<%@ page language="java" import="java.util.*" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*"
+	contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,37 +54,48 @@
 						<li><a href="#">4</a></li>
 						<li><a href="#">5</a></li>
 						<li><a href="#">下一页</a></li>
+						<li><a href="#">总计</a></li>
 					</ul>
 				</div>
 				<div class="clear"></div>
 				<ul class="product clearfix">
-					<% List<EProduct> categProducts = (List<EProduct>)request.getAttribute("categProduct");%>
-					<%for(int i = 0;i<categProducts.size();i++) {%>
+					<%
+						//获取分页类
+						PageUtil<EProduct> pageUtil = (PageUtil<EProduct>) request.getAttribute("pageUtil");
+						System.out.print("sdddddddddddd");
+					%>
+					<%
+						for (int i = 0; i < pageUtil.getList().size(); i++) {
+					%>
 					<li>
 						<dl>
 							<dt>
-								<a href="ProductServlet?param=productView&EPId=<%=categProducts.get(i).getEPId() %>" target="_blank"><img
-									src="<%=categProducts.get(i).getEPFile() %>" /></a>
+								<a
+									href="ProductServlet?param=productView&EPId=<%=pageUtil.getList().get(i).getEPCId()%>"
+									target="_blank"><img
+									src="<%=pageUtil.getList().get(i).getEPFile()%>" /></a>
 							</dt>
 							<dd class="title">
-								<a href="ProductServlet?param=productView&EPId=<%=categProducts.get(i).getEPId() %>" target="_blank"><%=categProducts.get(i).getEPName() %></a>
+								<a
+									href="ProductServlet?param=productView&EPId=<%=pageUtil.getList().get(i).getEPId()%>"
+									target="_blank"><%=pageUtil.getList().get(i).getEPName()%></a>
 							</dd>
-							<dd class="price"><%=categProducts.get(i).getEPPrice() %></dd>
+							<dd class="price"><%=pageUtil.getList().get(i).getEPPrice()%></dd>
 						</dl>
 					</li>
 
-					<% }	%>
+					<%
+						}
+					%>
 				</ul>
 				<div class="clear"></div>
 				<div class="pager">
 					<ul class="clearfix">
-						<li><a href="#">上一页</a></li>
-						<li class="current">1</li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">下一页</a></li>
+						<li><a href="<%=pageUtil.getPageNo() - 1%>">上一页</a></li>
+						<li class="current"><%=pageUtil.getPageNo()%></li>
+						<li><a
+							href="ProductServlet?param=categ&pageNo=<%=pageUtil.getPageNo() + 1%>">下一页</a></li>
+						<li><a href="#">总计<%=pageUtil.getTotalPage()%></a></li>
 					</ul>
 				</div>
 			</div>
