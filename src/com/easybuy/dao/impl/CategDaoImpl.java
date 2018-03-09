@@ -66,4 +66,39 @@ public class CategDaoImpl implements CategDao {
 		return c;
 	}
 
+	@Override
+	public boolean updateById(int cid, EPCateg categ) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql = "update e_category set epc_name= ?,epc_parent_id =? where epc_id = ?";
+		Connection conn = DBUtil.getConn();
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, categ.getEPCName());
+		pstm.setInt(2, categ.getEPCParentId());
+		pstm.setInt(3, cid);
+		boolean isUpdate = false;
+		int a = pstm.executeUpdate();
+		if (a > 0) {
+			isUpdate = true;
+		}
+		return isUpdate;
+	}
+
+	@Override
+	public int getIdByName(String name) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql = "select epc_id from  e_category  where epc_name = ?";
+		Connection conn = DBUtil.getConn();
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, name);
+		ResultSet rs = pstm.executeQuery();
+		int id = 0;
+		while (rs.next()) {
+			id = rs.getInt("epc_id");
+			
+		}
+		System.out.println("数据库内"+name);
+		System.out.println("shujuku"+id);
+		return id;
+	}
+
 }

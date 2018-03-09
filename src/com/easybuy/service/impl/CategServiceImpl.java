@@ -51,4 +51,16 @@ public class CategServiceImpl implements CategService {
 		return new CategDaoImpl().getByCid(cid);
 	}
 
+	@Override
+	public boolean updateById(int cid, EPCateg categ) throws SQLException {
+		// TODO Auto-generated method stub
+		return new CategDaoImpl().updateById(cid, categ);
+	}
+
+	@Override
+	public int getIdByName(String name) throws SQLException {
+		// TODO Auto-generated method stub
+		return new CategDaoImpl().getIdByName(name);
+	}
+
 }

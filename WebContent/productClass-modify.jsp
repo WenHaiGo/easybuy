@@ -22,14 +22,17 @@
 			<div class="main">
 				<h2>修改分类</h2>
 				<div class="manage">
-					<form action="manage-result.html">
+					<%
+						List<CategUtils> allCateg = (List<CategUtils>) request.getAttribute("allCateg");
+						EPCateg currentCateg = (EPCateg) request.getAttribute("currentCateg");
+					%>
+					<form
+						action="CategServlet?param=submitUpdate&id=<%=currentCateg.getEPCId()%>"
+						method="post">
 						<table class="form">
 							<tr>
 								<td class="field">父分类：</td>
-								<%
-									List<CategUtils> allCateg = (List<CategUtils>) request.getAttribute("allCateg");
-									EPCateg categ = (EPCateg) request.getAttribute("currentCateg");
-								%>
+
 								<td><select name="parentId">
 										<option value="0" selected="selected">根栏目</option>
 										<%
@@ -45,7 +48,7 @@
 							<tr>
 								<td class="field">分类名称：</td>
 								<td><input type="text" class="text" name="className"
-									value="电脑" /></td>
+									value="<%=currentCateg.getEPCName()%>" /></td>
 							</tr>
 							<tr>
 								<td></td>

@@ -17,4 +17,8 @@ public interface CategService {
 
 	// 通过id获取分类
 	EPCateg getByCid(int cid) throws SQLException;
+	
+	boolean updateById(int cid,EPCateg categ) throws SQLException;
+	//根据分类名字获取相对应的id；
+	int getIdByName(String name) throws SQLException;
 }

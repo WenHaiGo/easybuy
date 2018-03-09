@@ -37,6 +37,7 @@ public class CategServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("utf-8");
 		String param = request.getParameter("param");
 		if (param != null && param.equals("manageCateg")) {
 			showAllCateg(request, response);
@@ -50,6 +51,32 @@ public class CategServlet extends HttpServlet {
 			updateCategById(request, response);
 
 		}
+		if (param != null && param.equals("submitUpdate")) {
+			submitUpdate(request, response);
+
+		}
+
+	}
+
+	private void submitUpdate(HttpServletRequest request, HttpServletResponse response) {
+		String idString = request.getParameter("id");
+		System.out.println("ssssssssssssssssssssssssss" + Integer.parseInt(idString));
+		EPCateg categ = new EPCateg();
+		String pidString = request.getParameter("parentId");
+		// 这里有必要根据分类名字获取相对应的id 否则都是默认的0
+		try {
+			if (idString != null && pidString != null) {
+				int pid = new CategServiceImpl().getIdByName(pidString);
+				System.out.println("sdusdhfjhsjfhjsadhfja"+pid);
+				categ.setEPCId(Integer.parseInt(idString));
+				categ.setEPCName(request.getParameter("className"));
+				categ.setEPCParentId(pid);
+				CategServiceImpl csi = new CategServiceImpl();
+				csi.updateById(Integer.parseInt(idString), categ);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
 	}
 
@@ -61,7 +88,7 @@ public class CategServlet extends HttpServlet {
 			try {
 				EPCateg categ = csi.getByCid(Integer.parseInt(idString));
 				List<CategUtils> list = new CategServiceImpl().getCategoryOfTree();
-				request.setAttribute("allCateg",list);
+				request.setAttribute("allCateg", list);
 				request.setAttribute("currentCateg", categ);
 				request.getRequestDispatcher("productClass-modify.jsp").forward(request, response);
 			} catch (NumberFormatException | SQLException e) {
