@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>后台管理 - 易买网</title>
@@ -14,13 +14,13 @@
 		 */
 		//获取页面传输过来的url
 		var url = window.location.href;
-		//alert(url);
+		alert(url);
 		/*
 		截取出来相对应的id
 		 */
 		var c = url.split("?")[1];
-		console.log(c);
-		var cid = c.split("=")[1];
+		var cc = c.split("=")[1];
+		var cid = cc.split("&")[0];
 		console.log(cid);
 		//加载子类名称
 		$.ajax({
@@ -28,10 +28,11 @@
 			type : 'post',
 			data : {
 				param : 'currentCateg',
-				id : cid
+				cid : cid
 			},
 			dataType : 'json',
 			success : function(data) {
+				alert(1);
 				$('input[name=className]').val(data.EPCName)
 			}
 		})
@@ -70,8 +71,7 @@
 				dataType : 'text',
 				success : function(data) {
 					if (data == 'yes') {
-					alert(123)
-					window.location.href = 'manage-result.html';
+						window.location.href = 'productClass.html';
 					} else {
 						alert("修改失败");
 					}
