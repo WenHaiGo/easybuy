@@ -21,7 +21,9 @@
 		var c = url.split("?")[1];
 		var cc = c.split("=")[1];
 		var cid = cc.split("&")[0];
-		console.log(cid);
+		//担心变量名弄混 所有命名为ppid
+		var ppid = c.split("=")[2];
+		//console.log("edf"+ppid);
 		//加载子类名称
 		$.ajax({
 			url : 'NewCategServlet',
@@ -49,7 +51,9 @@
 					var pstr = '<option value='+data[i].EPCId+'>'
 							+ data[i].EPCName + '</option>';
 					$('#pclass').append(pstr);
+					
 				}
+				$("#pclass option[value="+ppid+"]").attr("selected",true)
 			}
 		})
 
@@ -147,7 +151,7 @@
 				<form>
 					<table class="form">
 						<tr>
-							<td class="field">父分类：</td>
+							<td class="field" >父分类：</td>
 							<td><select name="parentId" id="pclass">
 									<option value="0" selected="selected">根栏目</option>
 
